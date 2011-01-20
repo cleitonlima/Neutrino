@@ -7,6 +7,13 @@ This is Neutrino Project, a tool to configure some parts of Fedora Linux. Neutri
 
 Changes
 
+Version 0.0.2 (20-01-2010 19:30)
+
+> Improved the API;
+> Added Gnash install module;
+> Added OpenJDK install module;
+> Added Gallium3D (Nvidia opensource) driver install module.
+
 Version 0.0.1 (20-01-2011 15:30)
 
 > Solved bug with the installation of local rpm file;

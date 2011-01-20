@@ -5,9 +5,10 @@
 #API do Programa.
 #
 
-from os import system
+from os import system, path, makedirs
 
-system("cd /tmp;mkdir neutrino")
+if not path.exists("/tmp/neutrino"):
+    makedirs("/tmp/neutrino")
 
 #Variables of the API
 
@@ -26,10 +27,9 @@ ATI_PROP = str("kmod-fglrx xorg-x11-drv-fglrx-libs-32bit")
 CODEC_PROP = str("totem-gstreamer totem-xine totem-nautilus totem-mozplugin totem-pl-parser totem-youtube xine-lib-extras xine-lib-extras-freeworld gstreamer-ffmpeg ffmpeg ffmpeg-libs gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly compat-libstdc++-33 compat-libstdc++-296 libdvdread libdvdnav lsdvd libdvbpsi")
 FLASH = str("flash-plugin")
 GNASH = str("gnash-plugin")
-JAVA_OPEN = str("java-*openjdk java-*openjdk-plugin")
+JAVA_OPEN = str("java-1.6.0-openjdk java-1.6.0-openjdk-plugin")
 
 #general packages and programs
-CHROMIUM = str("chromium")
 FONTS = str("aajohan-* adf-* aldusleaf-* allgeyer-* apa-new-* apanov-* artwiz-* beteckna-* bitstream-* bpg-* dejavu-* dustin-* ecolier-* gargi-* gdouros-* gfs-* gnu-free-* google-droid-* hartke-aurulent-* mgopen-* mona-* oflb-* yanone-* ghostscript-fonts xorg-x11-fonts* liberation-*")
 CHKFONT = str("http://espacoliberdade.blog.br/neutrino/packages/chkfontpath-1.10.1-2.fc13.i686.rpm")
 MSTTFONT = str("http://espacoliberdade.blog.br/neutrino/packages/msttcorefonts-2.0-2.noarch.rpm")
