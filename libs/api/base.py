@@ -5,7 +5,7 @@
 #API do Programa.
 #
 
-from os import system, path, makedirs
+from os import system, path, makedirs, getlogin
 
 if not path.exists("/tmp/neutrino"):
     makedirs("/tmp/neutrino")
@@ -38,7 +38,7 @@ MSTTFONT = str("http://espacoliberdade.blog.br/neutrino/packages/msttcorefonts-2
 def cacher():
 	#Function to make repos cache to yum.
 	#Will make install/remove package faster.
-	system("gnome-terminal -e beesu yum makecache")
+	system("xterm -e beesu yum makecache")
 
 def pkg_install (package):
 	#Function to add a package to system
@@ -55,8 +55,4 @@ def web_install(adress):
 def pkg_remove (package):
 	#Function to remove a package from the system
 	#No easy graphical interface is available, using text mode, with gnome-terminal and yum.
-	system("gnome-terminal -e beesu yum remove "+str(package))
-	
-def chromium_repo():
-	#Add Chromium Repo, from Fedora People
-	system("gnome-terminal -e cd /etc/yum.repos.d;beesu yum localinstall http://repos.fedorapeople.org/repos/spot/chromium/fedora-chromium.repo")
+	system("xterm -e beesu yum remove "+str(package))
