@@ -7,10 +7,15 @@ This is Neutrino Project, a tool to configure some parts of Fedora Linux. Neutri
 
 Changes
 
+Version 0.0.4 (29-01-2011 20:35)
+
+> Added Neutrino's UI;
+> Added icons for Nvidia, Adobe Flash, Multimedia and ATI functions.
+
 Version 0.0.3 (20-01-2011 23:39)
 
 > Moved the Chromium Install function from API to one independent module;
-> Applied Rafael Gomes' patch for correction of Chromium Install Module (Issue #1);
+> Applied Rafael Gomes' patch for correction of Chromium Install Module (Issue #1).
 
 Version 0.0.2 (20-01-2011 19:30)
 
