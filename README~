@@ -5,19 +5,6 @@ This is Neutrino Project, a tool to configure some parts of Fedora Linux. Neutri
 -Setup sudo;
 -And much more!
 
-How to Test:
-
-Download de files from Git and execute ui.py:
-
-python ui.py
-
-Requeriments (available in  Fedora's Repo):
-
-> PyQt4;
-> Xterm;
-> Beesu;
-> PackageKit (currently, Gnome-PackageKit);
-
 Changes
 
 Version 0.1.0 (20-02-2011 15:35)

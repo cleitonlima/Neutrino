@@ -4,11 +4,26 @@
 #Projeto Neutrino
 #Neutrino's User Interface
 #Cleiton Lima <cleitonlima@fedoraproject.org>
-#License: GPLv3
+
+#This file is part of Neutrino Project.
+
+#    Neutrino is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+
+#    Neutrino is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+
+#    You should have received a copy of the GNU General Public License
+#    along with Neutrino.  If not, see <http://www.gnu.org/licenses/>.
+
 
 import sys
 from PyQt4 import QtCore, QtGui
-#from libs.gallium3d import *
+from libs import chromium, gallium3d, gnash, fonts, Ssudo, openjdk
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -37,35 +52,63 @@ class MainWindow(QtGui.QMainWindow):
 
 	#App Icons
 	
-	#Nvidia and Nouveau Icon
-	#icon = QtGui.QIcon()
-	#icon.addPixmap(QtGui.QPixmap("imgs/nvidia.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+	#General System Tools an programs Icon
+	icon_system = QtGui.QIcon()
+	icon_system.addPixmap(QtGui.QPixmap("imgs/applications-system.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 	
-	#Adobe Flash Plugin Icon
-        #icon1 = QtGui.QIcon()
-        #icon1.addPixmap(QtGui.QPixmap("imgs/flash.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+	#General Internet Tools an Programs Icon
+	icon_internet = QtGui.QIcon()
+        icon_internet.addPixmap(QtGui.QPixmap("imgs/applications-internet.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+	
+	#General Office Tools an Programs Icon
+	icon_office = QtGui.QIcon()
+        icon_office.addPixmap(QtGui.QPixmap("imgs/applications-office.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+	
+	#General Multimedia Tools an Programs Icon
+	icon_multimedia = QtGui.QIcon()
+        icon_multimedia.addPixmap(QtGui.QPixmap("imgs/applications-multimedia.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+	
+	#General Games Icon
+	icon_games = QtGui.QIcon()
+        icon_games.addPixmap(QtGui.QPixmap("imgs/applications-games.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 	
 	#Remove button Icon
 	icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("imgs/remove.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-	
-	#Add button Icon
-	icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("imgs/add.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("imgs/uninstall.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 	
 	#Execute button Icon
 	icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap("imgs/install.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
-	#Nvidia Driver Item
-	#item = QtGui.QListWidgetItem(self.listWidget)
-        #item.setIcon(icon)
-	#self.listWidget.item(0).setText(QtGui.QApplication.translate("MainWindow", "Driver Nvidia", None, QtGui.QApplication.UnicodeUTF8))
+	#Nvidia Driver Nouveau Item
+	item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_system)
+	self.listWidget.item(0).setText(QtGui.QApplication.translate("MainWindow", "Driver Nvidia (Nouveau 3D)", None, QtGui.QApplication.UnicodeUTF8))
 	
-	#Adobe Flash Plugin Item
-        #item = QtGui.QListWidgetItem(self.listWidget)
-        #item.setIcon(icon1)
-        #self.listWidget.item(1).setText(QtGui.QApplication.translate("MainWindow", "Adobe Flash Plugin", None, QtGui.QApplication.UnicodeUTF8))
+	#Font Install Item
+	item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_system)
+	self.listWidget.item(1).setText(QtGui.QApplication.translate("MainWindow", "Extra Fonts (MSFonts, etc)", None, QtGui.QApplication.UnicodeUTF8))
+	
+	#Sudo Setup Item
+	item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_system)
+	self.listWidget.item(2).setText(QtGui.QApplication.translate("MainWindow", "Setup Sudo Usage", None, QtGui.QApplication.UnicodeUTF8))
+	
+	#OpenJDK Item
+	item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_system)
+	self.listWidget.item(3).setText(QtGui.QApplication.translate("MainWindow", "OpenJDK", None, QtGui.QApplication.UnicodeUTF8))
+	
+	#Gnash Plugin Item
+        item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_internet)
+        self.listWidget.item(4).setText(QtGui.QApplication.translate("MainWindow", "Gnash Plugin", None, QtGui.QApplication.UnicodeUTF8))
+	
+	#Chromium Item
+        item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_internet)
+        self.listWidget.item(5).setText(QtGui.QApplication.translate("MainWindow", "Chromium Browser", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#TextEdit
 	self.textEdit = QtGui.QTextEdit(self.centralwidget)
@@ -85,32 +128,20 @@ class MainWindow(QtGui.QMainWindow):
 	self.horizontalLayout = QtGui.QHBoxLayout(self.frame)
         self.horizontalLayout.setObjectName("horizontalLayout")
 	
-	#Remove Item Button
+	#Uninstall Button
         self.remove = QtGui.QCommandLinkButton(self.frame)
         self.remove.setMaximumSize(QtCore.QSize(45, 64))
         self.remove.setText("")
 	self.remove.setIcon(icon2)
         self.remove.setIconSize(QtCore.QSize(32, 32))
         self.remove.setObjectName("commandLinkButton")
-	self.remove.setToolTip(QtGui.QApplication.translate("MainWindow", "Remover tarefa da lista", None, QtGui.QApplication.UnicodeUTF8))
+	self.remove.setToolTip(QtGui.QApplication.translate("MainWindow", "Uninstall Selected Program", None, QtGui.QApplication.UnicodeUTF8))
         self.remove.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+-", None, QtGui.QApplication.UnicodeUTF8))
+	self.remove.setEnabled(False);
 	
 	#Add Remove Item Button to Frame Internal Layout
         self.horizontalLayout.addWidget(self.remove)
         
-	#Add Item Button
-	self.ad_bt = QtGui.QCommandLinkButton(self.frame)
-        self.ad_bt.setMaximumSize(QtCore.QSize(45, 64))
-        self.ad_bt.setText("")
-        self.ad_bt.setIcon(icon3)
-        self.ad_bt.setIconSize(QtCore.QSize(32, 32))
-        self.ad_bt.setObjectName("ad_bt")
-	self.ad_bt.setToolTip(QtGui.QApplication.translate("MainWindow", "Adicionar Tarefa a lista", None, QtGui.QApplication.UnicodeUTF8))
-        self.ad_bt.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl++", None, QtGui.QApplication.UnicodeUTF8))
-	
-	#Insert Add Item Button to Frame Internal Layout
-        self.horizontalLayout.addWidget(self.ad_bt)
-	
 	#Install Button
         self.install_bt = QtGui.QCommandLinkButton(self.frame)
         self.install_bt.setMaximumSize(QtCore.QSize(45, 64))
@@ -118,7 +149,7 @@ class MainWindow(QtGui.QMainWindow):
         self.install_bt.setIcon(icon4)
         self.install_bt.setIconSize(QtCore.QSize(32, 32))
         self.install_bt.setObjectName("install_bt")
-	self.install_bt.setToolTip(QtGui.QApplication.translate("MainWindow", "Executar tarefas", None, QtGui.QApplication.UnicodeUTF8))
+	self.install_bt.setToolTip(QtGui.QApplication.translate("MainWindow", "Install Selected Program", None, QtGui.QApplication.UnicodeUTF8))
         self.install_bt.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+E", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#Add Install Button to Frame Internal Layout
@@ -127,37 +158,42 @@ class MainWindow(QtGui.QMainWindow):
 	#Add Frame to MainWindow GridLayout
         self.gridLayout.addWidget(self.frame, 3, 0, 1, 1)
 	
-	#DockWidget to Show ListWidget with todo items
-        self.dockWidget = QtGui.QDockWidget(self)
-        self.dockWidget.setMinimumSize(QtCore.QSize(150, 127))
-        self.dockWidget.setFeatures(QtGui.QDockWidget.DockWidgetClosable)
-        self.dockWidget.setObjectName("dockWidget_2")
-	self.dockWidget.setVisible(False)
-        self.dockWidgetContents = QtGui.QWidget()
-        self.dockWidgetContents.setObjectName("dockWidgetContents_2")
-	self.dockWidget.setWidget(self.dockWidgetContents)
-        self.addDockWidget(QtCore.Qt.DockWidgetArea(2), self.dockWidget)
-	
-	#DockWidget Internal GridLayout
-	self.gridLayout_2 = QtGui.QGridLayout(self.dockWidgetContents)
-        self.gridLayout_2.setMargin(0)
-        self.gridLayout_2.setSpacing(0)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        
-	#ListWidget with todo items
-	self.todo = QtGui.QListWidget(self.dockWidgetContents)
-        self.todo.setObjectName("listWidget_2")
-        self.gridLayout_2.addWidget(self.todo, 0, 0, 1, 1)
-	
 	#Internal Functions
-	def add_task():
-		self.dockWidget.setVisible(True)
-		self.todo.addItem("First Task")
 	
+	#Execute Tasks Function
+	def install_fun():
+		row = str(self.listWidget.currentRow())
+		if row == "0":
+			gallium3d.gallium_install()
+		elif row == "1":
+			fonts.font_install()
+		elif row == "2":
+			Ssudo.setup_sudo()
+		elif row == "3":
+			openjdk.openjdk_install()
+		elif row == "4":
+			gnash.gnash_install()
+		elif row == "5":
+			chromium.chromium_install()
+		else:
+			print "Ops..."
+	
+	def description ():
+		row = str(self.listWidget.currentRow())
+		if row == "0":
+			self.textEdit.setText(gallium3d.gallium3d_DESCRIPTION)
+			#self.textEdit.setHtml(QtGui.QApplication.translate("MainWindow", gallium3d.gallium3d_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		if row == "2":
+			self.textEdit.clear()
+			self.textEdit.setText(Ssudo.Ssudo_DESCRIPTION)
+		else:
+			print "Ops..."
+			
 	#Signals and Slots
 	
-	self.connect(self.ad_bt, QtCore.SIGNAL("clicked()"), add_task)
-
+	self.connect(self.install_bt, QtCore.SIGNAL("clicked()"), install_fun)
+	self.connect(self.listWidget, QtCore.SIGNAL("currentRowChanged (int)"), description)
+	
 app = QtGui.QApplication(sys.argv)
 main = MainWindow()
 main.show()
