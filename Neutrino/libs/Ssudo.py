@@ -30,3 +30,5 @@ sudoers.append(line+user+cmd)
 sudo = open('sudoers', 'w')
 sudo.writelines(sudoers)
 sudo.close
+
+SUDO_DESCRIPTION = str("Setup Sudo usage in Fedora")

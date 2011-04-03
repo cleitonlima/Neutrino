@@ -20,10 +20,10 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Neutrino.  If not, see <http://www.gnu.org/licenses/>.
 
-from os import environ, system
+from os import environ
 import sys
 from PyQt4 import QtCore, QtGui
-from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia
+from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, java
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -204,7 +204,7 @@ class MainWindow(QtGui.QMainWindow):
 		elif row == "6":
 			openjdk.install()
 		elif row == "7":
-			system("beesu python libs/java.py")
+			java.install()
 		elif row == "8":
 			gnash.install()
 		elif row == "9":
@@ -237,9 +237,8 @@ class MainWindow(QtGui.QMainWindow):
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", openjdk.OPENJDK_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "7":
-			JAVA_DESCRIPTION = str("The Java Platform Standard Edition Runtime Environment (JRE) contains everything necessary to run applets and applications designed for the java platform. This includes the Java virtual machine, plus the Java platform classes and supporting files.")
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", JAVA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", java.JAVA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "8":
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", gnash.GNASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))

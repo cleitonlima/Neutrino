@@ -18,9 +18,9 @@
 #    along with Neutrino.  If not, see <http://www.gnu.org/licenses/>.
 
 #
-#This script will install extra fonts, present in the system and in others ways.
+#This script will install Oracle Java and configure the javaplugin with Firefox
 #
-from os import environ
+from os import environ, chdir, symlink, system
 desktoptype = environ.get('DESKTOP_SESSION')
 print desktoptype
 if "gnome" in desktoptype :
@@ -34,12 +34,14 @@ else:
 
 def install():
 	#Install Extra Fonts in repository
-	base.pkg_install(FONTS)
+	base.pkg_install(JAVA)
+	
+	#Set our installed java as default
+	system('alternatives --install /usr/bin/java java /usr/java/jre1.6.0_24/bin/java 20000')
+	system('alternatives --install /usr/bin/javaws javaws /usr/java/jre1.6.0_24/bin/javaws 20000')
+	
+	#Create Symbolic link to Java plugin in Firefox's plugin Folder
+	chdir("/usr/lib/mozilla/plugins/")
+	symlink("/usr/java/jre1.6.0_24/lib/i386/libnpjp2.so", "libnpjp2.so")
 
-	#Install Chkfont
-	base.web_install(CHKFONT)
-
-	#Install Microsoft Fonts
-	base.web_install(MSTTFONT)
-
-FONTS_DESCRIPTION = str("Collection of high quality TrueType fonts, default in any MS Windows installation. These are also the main webfonts as specified in microsoft.com/typography\nThe fonts:\nAndale Mono, Arial, Arial Black, Comic, Courier New, Georgia, Impact, Lucida Sans, Lucida Console, Microsoft Sans Serif, Symbol, Tahoma, Times New Roman, Trebuchet, Verdana, Webdings, Wingdings ")
+JAVA_DESCRIPTION = str("The Java Platform Standard Edition Runtime Environment (JRE) contains everything necessary to run applets and applications designed for the java platform. This includes the Java virtual machine, plus the Java platform classes and supporting files.")

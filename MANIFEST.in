@@ -1,5 +1,0 @@
-recursive-include runner README
-recursive-include Neutrino/libs *
-recursive-include Neutrino/libs/api *
-recursive-include Neutrino/imgs *
-recursive-include Neutrino/ *

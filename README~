@@ -21,6 +21,16 @@ Requeriments (available in  Fedora's Repo):
 
 Changes
 
+Version 0.6.0 (03-04-2011)
+
+> Added Oracle Java Install script;
+> Added Description to all Scripts
+
+Version 0.5.0 (12-03-2011 20:45)
+
+> Reestructure of the Project's folders;
+> Alpha release;
+
 Version 0.2.0 (6-03-2011 23:10)
 
 > Added KPackageKit integration on API;

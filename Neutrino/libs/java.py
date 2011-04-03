@@ -1,7 +1,6 @@
-#!/usr/bin/ env python
-# -*- coding: utf-8 -*-
-
-#Neutrino Project
+#!/usr/bin env python
+#Project Neutrino
+#Por Cleiton Lima <cleitonlima@fedoraproject.org>
 
 #This file is part of Neutrino Project.
 
@@ -18,13 +17,10 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Neutrino.  If not, see <http://www.gnu.org/licenses/>.
 
-
-#por Cleiton Lima <cleitonlima@fedoraproject.org>
-#por Rafael Gomes <rafaelgomes@techfree.com.br>
-#Chromium Browser Install
-#Must be executed as root
-
-from os import chdir, path, system, environ
+#
+#This script will install Oracle Java and configure the javaplugin with Firefox
+#
+from os import environ, chdir, symlink, system
 desktoptype = environ.get('DESKTOP_SESSION')
 print desktoptype
 if "gnome" in desktoptype :
@@ -35,15 +31,15 @@ elif "kde" in desktoptype:
 	base = KBase()
 else:
 	pass
-def install():
-	#Adding Chromium Repo
-	if path.isfile("/etc/yum.repos.d/fedora-chromium.repo") == False:
-		chdir("/etc/yum.repos.d/")
-		system("xterm -e beesu wget http://repos.fedorapeople.org/repos/spot/chromium/fedora-chromium.repo")
-	else:
-		pass
-	chdir("/etc/yum.repos.d/")
-	system("xterm -e beesu wget http://repos.fedorapeople.org/repos/spot/chromium/fedora-chromium.repo")
-	#Install Chromium Browser
-	base.pkg_install("chromium")
-CHROMIUM_DESCRIPTION = str("Chromium is an open-source web browser, powered by WebKit.")
+
+
+#Install Extra Fonts in repository
+base.pkg_install(JAVA)
+	
+#Set our installed java as default
+system('alternatives --install /usr/bin/java java /usr/java/jre1.6.0_24/bin/java 20000')
+system('alternatives --install /usr/bin/javaws javaws /usr/java/jre1.6.0_24/bin/javaws 20000')
+	
+#Create Symbolic link to Java plugin in Firefox's plugin Folder
+chdir("/usr/lib/mozilla/plugins/")
+symlink("/usr/java/jre1.6.0_24/lib/i386/libnpjp2.so", "libnpjp2.so")

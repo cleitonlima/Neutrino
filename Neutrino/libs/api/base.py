@@ -43,6 +43,7 @@ ATI_PROP = str("kmod-fglrx xorg-x11-drv-fglrx-libs")
 CODEC_PROP = str("totem-gstreamer totem-xine totem-nautilus totem-mozplugin totem-pl-parser totem-youtube xine-lib-extras xine-lib-extras-freeworld gstreamer-ffmpeg ffmpeg ffmpeg-libs gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly compat-libstdc++-33 compat-libstdc++-296 libdvdread libdvdnav lsdvd libdvbpsi")
 FLASH = str("flash-plugin")
 GNASH = str("gnash-plugin")
+JAVA = str("http://espacoliberdade.blog.br/neutrino/packages/jre-6u24-linux-i586.rpm")
 JAVA_OPEN = str("java-1.6.0-openjdk java-1.6.0-openjdk-plugin")
 
 #general packages and programs
@@ -51,7 +52,7 @@ CHKFONT = str("http://espacoliberdade.blog.br/neutrino/packages/chkfontpath-1.10
 MSTTFONT = str("http://espacoliberdade.blog.br/neutrino/packages/msttcorefonts-2.0-2.noarch.rpm")
 Ssudo_DESCRIPTION = str("Allow current user to execute programs and commands using 'sudo' instead of 'su'")
 
-#GTK Module
+#Gnome Module
 
 class GBase ():
 	def cacher():

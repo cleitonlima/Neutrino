@@ -40,3 +40,5 @@ def install():
 #Remove OpenJDK
 def remove():
 	base.pkg_remove(JAVA_OPEN)
+
+OPENJDK_DESCRIPTION = str("The OpenJDK runtime environment.")

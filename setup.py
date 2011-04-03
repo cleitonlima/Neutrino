@@ -43,6 +43,7 @@ _data_files = [
 	('share/Neutrino/libs', ['Neutrino/libs/fonts.py']),
 	('share/Neutrino/libs', ['Neutrino/libs/nvidia.py']),
 	('share/Neutrino/libs', ['Neutrino/libs/openjdk.py']),
+	('share/Neutrino/libs', ['Neutrino/libs/java.py']),
 	('share/Neutrino/libs', ['Neutrino/libs/codecs.py']),
 	('share/Neutrino/libs', ['Neutrino/libs/__init__.py']),
 	('share/Neutrino/libs/api', ['Neutrino/libs/api/__init__.py']),
