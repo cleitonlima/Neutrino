@@ -20,6 +20,11 @@
 #
 #This script will install extra fonts, present in the system and in others ways.
 #
+
+FONTS = str("aajohan-* adf-* aldusleaf-* allgeyer-* apa-new-* apanov-* artwiz-* beteckna-* bitstream-* bpg-* dejavu-* dustin-* ecolier-* gargi-* gdouros-* gfs-* gnu-free-* google-droid-* hartke-aurulent-* mgopen-* mona-* oflb-* yanone-* ghostscript-fonts xorg-x11-fonts* liberation-*")
+CHKFONT = str("http://espacoliberdade.blog.br/neutrino/packages/chkfontpath-1.10.1-2.fc13.i686.rpm")
+MSTTFONT = str("http://espacoliberdade.blog.br/neutrino/packages/msttcorefonts-2.0-2.noarch.rpm")
+
 from os import environ
 desktoptype = environ.get('DESKTOP_SESSION')
 print desktoptype
@@ -37,9 +42,9 @@ def install():
 	base.pkg_install(FONTS)
 
 	#Install Chkfont
-	base.web_install(CHKFONT)
+	base.web_install(CHKFONT, "chkfontpath-1.10.1-2.fc13.i686.rpm")
 
 	#Install Microsoft Fonts
-	base.web_install(MSTTFONT)
+	base.web_install(MSTTFONT, "msttcorefonts-2.0-2.noarch.rpm")
 
 FONTS_DESCRIPTION = str("Collection of high quality TrueType fonts, default in any MS Windows installation. These are also the main webfonts as specified in microsoft.com/typography\nThe fonts:\nAndale Mono, Arial, Arial Black, Comic, Courier New, Georgia, Impact, Lucida Sans, Lucida Console, Microsoft Sans Serif, Symbol, Tahoma, Times New Roman, Trebuchet, Verdana, Webdings, Wingdings ")

@@ -34,6 +34,8 @@ elif "kde" in desktoptype:
 else:
 	pass
 
+GNASH = str("gnash-plugin")
+
 def install():
 	base.pkg_install("gnash gnash-plugin")
 	

@@ -33,6 +33,8 @@ elif "kde" in desktoptype:
 else:
 	pass
 
+JAVA_OPEN = str("java-openjdk icedtea-web")
+
 #Install OpenJDK
 def install():
 	base.pkg_install(JAVA_OPEN)

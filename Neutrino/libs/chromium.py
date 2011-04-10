@@ -25,6 +25,7 @@
 #Must be executed as root
 
 from os import chdir, path, system, environ
+import urllib2
 desktoptype = environ.get('DESKTOP_SESSION')
 print desktoptype
 if "gnome" in desktoptype :
@@ -38,12 +39,14 @@ else:
 def install():
 	#Adding Chromium Repo
 	if path.isfile("/etc/yum.repos.d/fedora-chromium.repo") == False:
-		chdir("/etc/yum.repos.d/")
-		system("xterm -e beesu wget http://repos.fedorapeople.org/repos/spot/chromium/fedora-chromium.repo")
+		u = urllib2.urlopen('http://repos.fedorapeople.org/repos/spot/chromium/fedora-chromium.repo')
+		localFile = open('/etc/yum.repos.d/fedora-chromium.repo', 'w')
+		localFile.write(u.read())
+		localFile.close()
 	else:
 		pass
-	chdir("/etc/yum.repos.d/")
-	system("xterm -e beesu wget http://repos.fedorapeople.org/repos/spot/chromium/fedora-chromium.repo")
+		
 	#Install Chromium Browser
 	base.pkg_install("chromium")
+	
 CHROMIUM_DESCRIPTION = str("Chromium is an open-source web browser, powered by WebKit.")

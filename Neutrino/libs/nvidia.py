@@ -34,13 +34,20 @@ elif "kde" in desktoptype:
 else:
 	pass
 
+NVIDIA_OPEN = str("mesa-dri-drivers-experimental")
+NVIDIA_PROP = str("akmod-nvidia")
+NVIDIA_PROP_96 = str("akmod-nvidia-96xx")
+NVIDIA_PROP_173 = str("akmod-nvidia-173xx")
+RPMFUSION_FREE = str("http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm")
+RPMFUSION_NONFREE = str("http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm")
+
 #Script para Nvidia GeForce 6, 7, 8, 9, série 200, série 300 e superiores
 def install ():
 	#Check if repo RPMFusion already exists
 	if path.isfile("/etc/yum.repos.d/rpmfusion-free.repo") == False:
-		base.webinstall(RPMFUSION_FREE)
+		base.webinstall(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
 	elif path.isfile("/etc/yum.repos.d/rpmfusion-nonfree.repo") == False:
-		base.webinstall(RPMFUSION_NONFREE)
+		base.webinstall(RPMFUSION_NONFREE, 'rpmfusion-nonfree-release-stable.noarch.rpm')
 	
 	#Install Nvidia Driver
 	base.pkg_install(NVIDIA_PROP)
@@ -49,9 +56,9 @@ def install ():
 def install_173 ():
 	#Check if repo RPMFusion already exists
 	if path.isfile("/etc/yum.repos.d/rpmfusion-free.repo") == False:
-		base.webinstall(RPMFUSION_FREE)
+		base.webinstall(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
 	elif path.isfile("/etc/yum.repos.d/rpmfusion-nonfree.repo") == False:
-		base.webinstall(RPMFUSION_NONFREE)
+		base.webinstall(RPMFUSION_NONFREE, 'rpmfusion-nonfree-release-stable.noarch.rpm')
 	
 	#Install Nvidia Driver
 	base.pkg_install(NVIDIA_PROP_173)
@@ -59,10 +66,11 @@ def install_173 ():
 #Script para Driver Nvidia para placas GeForce 2, 3, 4 e Quadro 4
 def install_96 ():
 	#Check if repo RPMFusion already exists
+	#Check if repo RPMFusion already exists
 	if path.isfile("/etc/yum.repos.d/rpmfusion-free.repo") == False:
-		base.webinstall(RPMFUSION_FREE)
+		base.webinstall(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
 	elif path.isfile("/etc/yum.repos.d/rpmfusion-nonfree.repo") == False:
-		base.webinstall(RPMFUSION_NONFREE)
+		base.webinstall(RPMFUSION_NONFREE, 'rpmfusion-nonfree-release-stable.noarch.rpm')
 	
 	#Install Nvidia Driver
 	base.pkg_install(NVIDIA_PROP_96)

@@ -20,8 +20,10 @@
 
 #API do Programa.
 
-from os import system, path, makedirs, getlogin
+from os import system, path, makedirs, getlogin, remove, listdir
+import urllib2
 from PyQt4 import QtCore, QtGui
+import dbus
 
 if not path.exists("/tmp/neutrino"):
     makedirs("/tmp/neutrino")
@@ -41,15 +43,9 @@ ATI_PROP = str("kmod-fglrx xorg-x11-drv-fglrx-libs")
 
 #Multimedia
 CODEC_PROP = str("totem-gstreamer totem-xine totem-nautilus totem-mozplugin totem-pl-parser totem-youtube xine-lib-extras xine-lib-extras-freeworld gstreamer-ffmpeg ffmpeg ffmpeg-libs gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly compat-libstdc++-33 compat-libstdc++-296 libdvdread libdvdnav lsdvd libdvbpsi")
-FLASH = str("flash-plugin")
-GNASH = str("gnash-plugin")
 JAVA = str("http://espacoliberdade.blog.br/neutrino/packages/jre-6u24-linux-i586.rpm")
-JAVA_OPEN = str("java-1.6.0-openjdk java-1.6.0-openjdk-plugin")
 
 #general packages and programs
-FONTS = str("aajohan-* adf-* aldusleaf-* allgeyer-* apa-new-* apanov-* artwiz-* beteckna-* bitstream-* bpg-* dejavu-* dustin-* ecolier-* gargi-* gdouros-* gfs-* gnu-free-* google-droid-* hartke-aurulent-* mgopen-* mona-* oflb-* yanone-* ghostscript-fonts xorg-x11-fonts* liberation-*")
-CHKFONT = str("http://espacoliberdade.blog.br/neutrino/packages/chkfontpath-1.10.1-2.fc13.i686.rpm")
-MSTTFONT = str("http://espacoliberdade.blog.br/neutrino/packages/msttcorefonts-2.0-2.noarch.rpm")
 Ssudo_DESCRIPTION = str("Allow current user to execute programs and commands using 'sudo' instead of 'su'")
 
 #Gnome Module
@@ -63,14 +59,24 @@ class GBase ():
 	def pkg_install (GBase, package):
 		#Function to add a package to system
 		#Using graphical interface
+		
 		system("gpk-install-package-name "+str(package))
 	
-	def web_install(GBase, adress):
+	def web_install(GBase, adress, pkg_name):
 		#Function to install package from de web.
 		#Will be util for rpmfusion repos install, for example.
-		system("cd /tmp/neutrino;xterm -e wget "+str(adress))
-		system("gpk-install-file /tmp/neutrino/*.rpm")
-		system("rm -rf /tmp/neutrino/*")
+		
+		#Using urllib2 to download de file
+		u = urllib2.urlopen(str(adress))
+		localFile = open('/tmp/neutrino/'+str(pkg_name), 'w')
+		localFile.write(u.read())
+		localFile.close()
+		
+		#Using PackageKit to Install the file
+		system("gpk-install-file /tmp/neutrino/"+str(pkg_name))
+		
+		#Using os.remove to delete the file
+		remove("/tmp/neutrino/"+str(pkg_name))
 	
 	def pkg_remove (GBase, package):
 		#Function to remove a package from the system
@@ -88,14 +94,24 @@ class KBase ():
 	def pkg_install (KBase, package):
 		#Function to add a package to system
 		#Using graphical interface
+		
 		system("kpackagekit --install-package-name "+str(package))
 	
-	def web_install(KBase, adress):
+	def web_install(KBase, adress, pkg_name):
 		#Function to install package from de web.
 		#Will be util for rpmfusion repos install, for example.
-		system("cd /tmp/neutrino;xterm -e wget "+str(adress))
-		system("kpackagekit --install-local-file /tmp/neutrino/*.rpm")
-		system("rm -rf /tmp/neutrino/*")
+		
+		#Using urllib2 to download de file
+		u = urllib2.urlopen(str(adress))
+		localFile = open('/tmp/neutrino/'+str(pkg_name), 'w')
+		localFile.write(u.read())
+		localFile.close()
+		
+		#Using PackageKit to Install the file
+		system("kpackagekit --install-local-file /tmp/neutrino/"+str(pkg_name))
+		
+		#Using os.remove to delete the file
+		remove("/tmp/neutrino/"+str(pkg_name))
 	
 	def pkg_remove (KBase, package):
 		#Function to remove a package from the system

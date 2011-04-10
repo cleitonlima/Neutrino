@@ -34,10 +34,12 @@ elif "kde" in desktoptype:
 else:
 	pass
 
+FLASH = str("flash-plugin")
+
 def install():
 	#Check Adobe's repositoy
 	if path.isfile("/etc/yum.repos.d/adobe-linux-i386.repo") == False:
-		base.webinstall("http://espacoliberdade.blog.br/neutrino/packages/adobe-release-i386-1.0-1.noarch.rpm")
+		base.webinstall("http://espacoliberdade.blog.br/neutrino/packages/adobe-release-i386-1.0-1.noarch.rpm", "adobe-release-i386-1.0-1.noarch.rpm")
 	#Install Flash Plugin from repo
 	base.pkg_install(FLASH)
 

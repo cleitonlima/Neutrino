@@ -34,12 +34,16 @@ elif "kde" in desktoptype:
 else:
 	pass
 
+CODEC_PROP = str("totem-gstreamer totem-xine totem-nautilus totem-mozplugin totem-pl-parser totem-youtube xine-lib-extras xine-lib-extras-freeworld gstreamer-ffmpeg ffmpeg ffmpeg-libs gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly compat-libstdc++-33 compat-libstdc++-296 libdvdread libdvdnav lsdvd libdvbpsi")
+RPMFUSION_FREE = str("http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm")
+RPMFUSION_NONFREE = str("http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm")
+
 def install():
 	#Check if repo RPMFusion already exists
 	if path.isfile("/etc/yum.repos.d/rpmfusion-free.repo") == False:
-		base.webinstall(RPMFUSION_FREE)
+		base.webinstall(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
 	elif path.isfile("/etc/yum.repos.d/rpmfusion-nonfree.repo") == False:
-		base.webinstall(RPMFUSION_NONFREE)
+		base.webinstall(RPMFUSION_NONFREE, "rpmfusion-nonfree-release-stable.noarch.rpm")
 	
 	#Install Flash Plugin from repo
 	base.pkg_install(CODEC_PROP)

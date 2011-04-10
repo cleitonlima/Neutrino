@@ -1,5 +1,6 @@
-#!/usr/bin env python
-#Project Neutrino
+#!/usr/bin/ env python
+
+#Neutrino Project
 #Por Cleiton Lima <cleitonlima@fedoraproject.org>
 
 #This file is part of Neutrino Project.
@@ -17,10 +18,12 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Neutrino.  If not, see <http://www.gnu.org/licenses/>.
 
+
 #
-#This script will install Oracle Java and configure the javaplugin with Firefox
+#This module will install LibreOffice Suite.
 #
-from os import environ, chdir, symlink, system
+from os import environ, system, remove
+import urllib2
 desktoptype = environ.get('DESKTOP_SESSION')
 print desktoptype
 if "gnome" in desktoptype :
@@ -32,15 +35,15 @@ elif "kde" in desktoptype:
 else:
 	pass
 
-JAVA = str("http://espacoliberdade.blog.br/neutrino/packages/jre-6u24-linux-i586.rpm")
+def install():
+	base.pkg_install("libreoffice-calc libreoffice-writer libreoffice-impress libreoffice-langpack-pt-br libreoffice-pdfimporter")
+	
+	#Install CoGrOO extension for Writer
+	u = urllib2.urlopen('http://espacoliberdade.blog.br/neutrino/packages/CoGrOO-AddOn-3.1.0-bin.oxt')
+	localFile = open('/tmp/neutrino/CoGrOO-AddOn-3.1.0-bin.oxt', 'w')
+	localFile.write(u.read())
+	localFile.close()
+	system("beesu xterm -e unopkg add --shared /tmp/neutrino/CoGrOO-AddOn-3.1.0-bin.oxt")
+	remove("/tmp/neutrino/CoGrOO-AddOn-3.1.0-bin.oxt")
 
-#Install Extra Fonts in repository
-base.web_install(JAVA, "jre-6u24-linux-i586.rpm")
-	
-#Set our installed java as default
-system('alternatives --install /usr/bin/java java /usr/java/jre1.6.0_24/bin/java 20000')
-system('alternatives --install /usr/bin/javaws javaws /usr/java/jre1.6.0_24/bin/javaws 20000')
-	
-#Create Symbolic link to Java plugin in Firefox's plugin Folder
-chdir("/usr/lib/mozilla/plugins/")
-symlink("/usr/java/jre1.6.0_24/lib/i386/libnpjp2.so", "libnpjp2.so")
+LIBO_DESCRIPTION = str("OpenSource Office suite, compatible with Microsoft Office formats and others open formats, like ODF")

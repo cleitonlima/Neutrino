@@ -23,7 +23,7 @@
 from os import environ, system
 import sys
 from PyQt4 import QtCore, QtGui
-from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia
+from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, libreoffice
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -101,40 +101,45 @@ class MainWindow(QtGui.QMainWindow):
         item.setIcon(icon_multimedia)
 	self.listWidget.item(3).setText(QtGui.QApplication.translate("MainWindow", "Codecs", None, QtGui.QApplication.UnicodeUTF8))
 	
+	#LibreOffice Item
+	item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_office)
+	self.listWidget.item(4).setText(QtGui.QApplication.translate("MainWindow", "Suíte LibreOffice", None, QtGui.QApplication.UnicodeUTF8))
+	
 	#Font Install Item
 	item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_system)
-	self.listWidget.item(4).setText(QtGui.QApplication.translate("MainWindow", "Extra Fonts (MSFonts, etc)", None, QtGui.QApplication.UnicodeUTF8))
+	self.listWidget.item(5).setText(QtGui.QApplication.translate("MainWindow", "Extra Fonts (MSFonts, etc)", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#Sudo Setup Item
 	item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_system)
-	self.listWidget.item(5).setText(QtGui.QApplication.translate("MainWindow", "Setup Sudo Usage", None, QtGui.QApplication.UnicodeUTF8))
+	self.listWidget.item(6).setText(QtGui.QApplication.translate("MainWindow", "Setup Sudo Usage", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#OpenJDK Item
 	item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_system)
-	self.listWidget.item(6).setText(QtGui.QApplication.translate("MainWindow", "OpenJDK", None, QtGui.QApplication.UnicodeUTF8))
+	self.listWidget.item(7).setText(QtGui.QApplication.translate("MainWindow", "OpenJDK", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#Oracle Java Item
 	item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_system)
-	self.listWidget.item(7).setText(QtGui.QApplication.translate("MainWindow", "Java (JRE)", None, QtGui.QApplication.UnicodeUTF8))
+	self.listWidget.item(8).setText(QtGui.QApplication.translate("MainWindow", "Java (JRE)", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#Gnash Plugin Item
         item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_internet)
-        self.listWidget.item(8).setText(QtGui.QApplication.translate("MainWindow", "Gnash Plugin", None, QtGui.QApplication.UnicodeUTF8))
+        self.listWidget.item(9).setText(QtGui.QApplication.translate("MainWindow", "Gnash Plugin", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#Flash Plugin Item
         item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_internet)
-        self.listWidget.item(9).setText(QtGui.QApplication.translate("MainWindow", "Flash Plugin", None, QtGui.QApplication.UnicodeUTF8))
+        self.listWidget.item(10).setText(QtGui.QApplication.translate("MainWindow", "Flash Plugin", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#Chromium Item
         item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_internet)
-        self.listWidget.item(10).setText(QtGui.QApplication.translate("MainWindow", "Chromium Browser", None, QtGui.QApplication.UnicodeUTF8))
+        self.listWidget.item(11).setText(QtGui.QApplication.translate("MainWindow", "Chromium Browser", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#TextEdit
 	self.textEdit = QtGui.QTextEdit(self.centralwidget)
@@ -198,18 +203,20 @@ class MainWindow(QtGui.QMainWindow):
 		elif row == "3":
 			codecs.install()
 		elif row == "4":
-			fonts.install()
+			libreoffice.install()
 		elif row == "5":
-			system("beesu python libs/Ssudo.py")
+			fonts.install()
 		elif row == "6":
-			openjdk.install()
+			system("beesu python libs/Ssudo.py")
 		elif row == "7":
-			system("beesu python libs/java.py")
+			openjdk.install()
 		elif row == "8":
-			gnash.install()
+			system("beesu python libs/java.py")
 		elif row == "9":
-			flash.install()
+			gnash.install()
 		elif row == "10":
+			flash.install()
+		elif row == "11":
 			chromium.install()
 		else:
 			pass
@@ -229,24 +236,27 @@ class MainWindow(QtGui.QMainWindow):
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", codecs.CODEC_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "4":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", fonts.FONTS_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", libreoffice.LIBO_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "5":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", "Setup Sudo Usage in Fedora", None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", fonts.FONTS_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "6":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", openjdk.OPENJDK_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", "Setup Sudo Usage in Fedora", None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "7":
+			self.textEdit.clear()
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", openjdk.OPENJDK_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "8":
 			JAVA_DESCRIPTION = str("The Java Platform Standard Edition Runtime Environment (JRE) contains everything necessary to run applets and applications designed for the java platform. This includes the Java virtual machine, plus the Java platform classes and supporting files.")
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", JAVA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-		elif row == "8":
-			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", gnash.GNASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "9":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", flash.FLASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", gnash.GNASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "10":
+			self.textEdit.clear()
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", flash.FLASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "11":
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", chromium.CHROMIUM_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		else:
