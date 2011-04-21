@@ -73,7 +73,7 @@ class GBase ():
 		localFile.close()
 		
 		#Using PackageKit to Install the file
-		system("gpk-install-file /tmp/neutrino/"+str(pkg_name))
+		system("gpk-install-local-file /tmp/neutrino/"+str(pkg_name))
 		
 		#Using os.remove to delete the file
 		remove("/tmp/neutrino/"+str(pkg_name))
@@ -82,6 +82,10 @@ class GBase ():
 		#Function to remove a package from the system
 		#No easy graphical interface is available, using text mode, with gnome-terminal and yum.
 		system("xterm -e beesu yum remove "+str(package))
+	
+	def gsettings (GBase, function, theme):
+		#Function to modify configurations in GNOME 3.
+		system("gsettings set org.gnome.desktop.interface "+str(function)+str(" "+str(theme)))
 
 #Qt4/KDE Module
 

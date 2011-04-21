@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #Neutrino Project
-#por Cleiton Lima <cleitonlima@fedoraproject.org>
+#Por Cleiton Lima <cleitonlima@fedoraproject.org>
 
 #This file is part of Neutrino Project.
 
@@ -19,15 +19,26 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Neutrino.  If not, see <http://www.gnu.org/licenses/>.
 
-#Setup sudo in Fedora
-from os import getlogin, getenv, chdir
+
+#
+#This Module Installs Faenza Icon Theme
+#
+from os import environ, path, remove
 from dialog import *
 from dialog_ok import *
 from dialog_error import *
 
+desktoptype = environ.get('DESKTOP_SESSION')
+if "gnome" in desktoptype :
+	from api.base import GBase
+	base = GBase()
+else:
+	exit()
+
+
 def install():
 	file = open("/tmp/neutrino/text_var", "w")
-	file.write("Deseja executar a modificação?")
+	file.write("Deseja Instalar e Aplicar o\n Tema de Ícones Elementary?")
 	file.close()
 	app = QtGui.QApplication(sys.argv)
 	ex = NoYes()
@@ -36,17 +47,11 @@ def install():
 	set = str(open("/tmp/neutrino/dialog_var").read())
 	if set == 'ok':
 		try:
-			install()
-			line = str("\n")
-			user = str(getlogin())
-			print user
-			cmd = str(" ALL=(ALL) NOPASSWD:ALL")
-			chdir(str("/etc/"))
-			sudoers = open ('sudoers', 'r').readlines()
-			sudoers.append(line+user+cmd)
-			sudo = open('sudoers', 'w')
-			sudo.writelines(sudoers)
-			sudo.close
+			if path.isdir("/usr/share/icons/Faenza") == False:
+				base.pkg_install("faenza-icon-theme")
+				base.gsettings("icon-theme", "elementary")
+			else:
+				base.gsettings("icon-theme", "elementary")
 		except:
 			pass
 		file = open("/tmp/neutrino/text_var", "w")
@@ -66,4 +71,6 @@ def install():
 		app1.exec_()
 install()
 
-SUDO_DESCRIPTION = str("Setup Sudo usage in Fedora")
+remove("/tmp/neutrino/text_var")
+
+FAENZA_DESCRIPTION = str("Tema de ícones Elementary para Gnome.")

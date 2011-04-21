@@ -23,7 +23,7 @@
 from os import environ, system
 import sys
 from PyQt4 import QtCore, QtGui
-from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, libreoffice
+from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -34,6 +34,9 @@ class MainWindow(QtGui.QMainWindow):
         self.setWindowTitle ("Neutrino Project")
 	self.setObjectName("MainWindow")
         self.resize(691, 524)
+	screen = QtGui.QDesktopWidget().screenGeometry()
+        size =  self.geometry()
+        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 	
 	#MainWindow GridLayout
 	self.centralwidget = QtGui.QWidget(self)
@@ -72,6 +75,10 @@ class MainWindow(QtGui.QMainWindow):
 	#General Games Icon
 	icon_games = QtGui.QIcon()
         icon_games.addPixmap(QtGui.QPixmap("imgs/applications-games.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+	
+	#General Icon
+	icon_other = QtGui.QIcon()
+        icon_other.addPixmap(QtGui.QPixmap("imgs/applications-other.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 	
 	#Remove button Icon
 	icon2 = QtGui.QIcon()
@@ -139,7 +146,23 @@ class MainWindow(QtGui.QMainWindow):
 	#Chromium Item
         item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_internet)
-        self.listWidget.item(11).setText(QtGui.QApplication.translate("MainWindow", "Chromium Browser", None, QtGui.QApplication.UnicodeUTF8))
+        self.listWidget.item(11).setText(QtGui.QApplication.translate("MainWindow", "Navegador Chromium", None, QtGui.QApplication.UnicodeUTF8))
+	
+	#Elementary Item
+        item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_other)
+        self.listWidget.item(12).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Elementary", None, QtGui.QApplication.UnicodeUTF8))
+	
+	#Faenza Item
+        item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_other)
+        self.listWidget.item(13).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Faenza", None, QtGui.QApplication.UnicodeUTF8))
+	
+	#GShell Elementary Item
+        item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_other)
+        self.listWidget.item(14).setText(QtGui.QApplication.translate("MainWindow", "Tema Elementary para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
+	
 	
 	#TextEdit
 	self.textEdit = QtGui.QTextEdit(self.centralwidget)
@@ -217,7 +240,13 @@ class MainWindow(QtGui.QMainWindow):
 		elif row == "10":
 			flash.install()
 		elif row == "11":
-			chromium.install()
+			flash.install()
+		elif row == "12":
+			system("python libs/elementary.py")
+		elif row == "13":
+			system("python libs/faenza.py")
+		elif row == "14":
+			system("python libs/gshell_elementary.py")
 		else:
 			pass
 	
@@ -258,7 +287,20 @@ class MainWindow(QtGui.QMainWindow):
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", flash.FLASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "11":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", chromium.CHROMIUM_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", chromium.FLASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "12":
+			ELEMENTARY_DESCRIPTION = str("Tema de Ícones Elementary, para o Gnome.")
+			self.textEdit.clear()
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", ELEMENTARY_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "13":
+			FAENZA_DESCRIPTION = str("Tema de Ícones Faenza, para o Gnome.")
+			self.textEdit.clear()
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", FAENZA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "14":
+			GShell_elementary_DESCRIPTION = str("Tema Elementary, para o Gnome-Shell")
+			self.textEdit.clear()
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_elementary_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+
 		else:
 			print "Ops..."
 			

@@ -24,21 +24,23 @@
 import sys
 from PyQt4 import QtCore, QtGui
 
-class NoYes(QtGui.QWidget):
+class OkCancel(QtGui.QWidget):
 	def __init__(self):
-		super(NoYes, self).__init__()
+		super(OkCancel, self).__init__()
         
 		self.initUI()
         
 	def initUI(self):
-		
+		screen = QtGui.QDesktopWidget().screenGeometry()
+		size =  self.geometry()
+		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 		file = open("/tmp/neutrino/text_var").read()
 		self.setWindowTitle("Test")
 		self.gridLayout = QtGui.QGridLayout(self)
 		self.gridLayout.setObjectName("gridLayout")
 		self.label = QtGui.QLabel(self)
 		self.label.setText("")
-		self.label.setPixmap(QtGui.QPixmap("imgs/dialog-question.png"))
+		self.label.setPixmap(QtGui.QPixmap("imgs/dialog-error.png"))
 		self.label.setAlignment(QtCore.Qt.AlignCenter)
 		self.label.setObjectName("label")
 		self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
@@ -48,13 +50,9 @@ class NoYes(QtGui.QWidget):
 		self.gridLayout.addWidget(self.label_2, 0, 1, 1, 1)
 		self.buttonBox = QtGui.QDialogButtonBox(self)
 		self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-		self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.No|QtGui.QDialogButtonBox.Yes)
+		self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Ok)
 		self.buttonBox.setObjectName("buttonBox")
 		self.gridLayout.addWidget(self.buttonBox, 1, 0, 1, 2)
-		
-		screen = QtGui.QDesktopWidget().screenGeometry()
-		size =  self.geometry()
-		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 		
 		def mimimi ():
 			ok = open("/tmp/neutrino/dialog_var", 'w')
@@ -70,4 +68,4 @@ class NoYes(QtGui.QWidget):
 	
 		QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), mimimi)
 		QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("rejected()"), mimimi2)
-		
+ 
