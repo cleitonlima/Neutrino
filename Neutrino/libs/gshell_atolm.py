@@ -23,7 +23,7 @@
 #This script will install extra fonts, present in the system and in others ways.
 #
 
-#Elementary Gnome-Shell Theme
+#Smooth-Inset Gnome-Shell Theme
 from os import environ, path
 from dialog import *
 from dialog_ok import *
@@ -40,9 +40,9 @@ else:
 	pass
 
 def install():
-	if path.isdir("/usr/share/themes/gnome-shell/elementary") == True:
+	if path.isdir("/usr/share/themes/gnome-shell/atolm") == True:
 		file = open("/tmp/neutrino/text_var", "w")
-		file.write("O Tema Elementary já está instalado.\n Deseja reinstalar?")
+		file.write("O Tema Atolm já está instalado.\n Deseja reinstalar?")
 		file.close()
 		app = QtGui.QApplication(sys.argv)
 		ex = NoYes()
@@ -50,7 +50,7 @@ def install():
 		app.exec_()
 		set = str(open("/tmp/neutrino/dialog_var").read())
 		if set == 'ok':
-			base.web_install("http://cleitonlima.com.br/neutrino/packages/gnome-shell-theme-elementary-1.0-1.fc15.noarch.rpm", "gnome-shell-theme-elementary-1.0-1.fc15.noarch.rpm")
+			base.web_install("http://cleitonlima.com.br/neutrino/packages/gnome-shell-theme-atolm-1.0-1.fc15.noarch.rpm", "gnome-shell-theme-atolm-1.0-1.fc15.noarch.rpm")
 			file = open("/tmp/neutrino/text_var", "w")
 			file.write("Reinicie o Gnome-Shell para aplicar o tema. (ALT+F2 e digitar 'rt')")
 			file.close()
@@ -67,7 +67,7 @@ def install():
 			ex2.show()
 			app2.exec_()
 	else:
-		base.web_install("http://cleitonlima.com.br/neutrino/packages/gnome-shell-theme-elementary-1.0-1.fc15.noarch.rpm", "gnome-shell-theme-elementary-1.0-1.fc15.noarch.rpm")
+		base.web_install("http://cleitonlima.com.br/neutrino/packages/gnome-shell-theme-atolm-1.0-1.fc15.noarch.rpm", "gnome-shell-theme-atolm-inset-1.3-1.fc15.noarch.rpm")
 		file = open("/tmp/neutrino/text_var", "w")
 		file.write("Reinicie o Gnome-Shell para aplicar o tema. (ALT+F2 e digitar 'rt')")
 		file.close()
@@ -78,4 +78,4 @@ def install():
 
 install()
 
-gshell_elementary_DESCRIPTION = str("Tema Elementary para o Gnome-Shell, por half-left. Após atualizar o Gnome-Shell, será necessário reinstalar o tema para que ele volte a aparecer.")
+gshell_elementary_DESCRIPTION = str("Tema Atolm para o Gnome-Shell, por half-left. Após atualizar o Gnome-Shell, será necessário reinstalar o tema para que ele volte a aparecer.")

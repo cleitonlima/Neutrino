@@ -32,7 +32,7 @@ elif "kde" in desktoptype:
 else:
 	pass
 
-JAVA = str("http://espacoliberdade.blog.br/neutrino/packages/jre-6u24-linux-i586.rpm")
+JAVA = str("http://cleitonlima.com.br/neutrino/packages/jre-6u24-linux-i586.rpm")
 
 #Install Extra Fonts in repository
 base.web_install(JAVA, "jre-6u24-linux-i586.rpm")

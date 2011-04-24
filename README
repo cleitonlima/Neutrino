@@ -16,10 +16,16 @@ Requeriments (available in  Fedora's Repo):
 > PyQt4;
 > Xterm;
 > Beesu;
-> Gnome-PackageKit (on Gnome);
-> KPackageKit (on KDE);
+> Gnome-PackageKit (on Gnome) or KPackageKit (on KDE);
 
 Changes
+
+Version 0.8.0
+
+> Added LibreOffice Suite install;
+> Added Gnome-Shell Themes;
+> Added Faenza and Elementary Icon Themes installation.
+
 
 Version 0.2.0 (6-03-2011 23:10)
 

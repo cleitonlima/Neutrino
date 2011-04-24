@@ -5,20 +5,19 @@ import os
 import platform
 
 setup_info =dict(name = 'neutrino',
-        version = '0.5',
+        version = '0.8',
         description = 'Install Extra Packages and Configure Fedora',
         author = 'Cleiton Lima',
         author_email = 'cleitonlima@fedoraproject.org',
         url = 'https://github.com/cleitonlima/Neutrino',
         license = 'GNU GPL 3',
         classifiers=[
-        "Development Status :: 1 - Alpha",
+        "Development Status :: 2 - Beta",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Operating System :: GNU/Linux",
         "Programming Language :: Python",
         ],
-	package = 'Neutrino',
-	#package_data = {'Neutrino':['*.py', 'libs/*/*']}
+	package = 'Neutrino'
 	)
 	
 _data_files = [
@@ -31,11 +30,21 @@ _data_files = [
 	('share/Neutrino/imgs', ['Neutrino/imgs/applications-system.png']),
 	('share/Neutrino/imgs', ['Neutrino/imgs/applications-multimedia.png']),
 	('share/Neutrino/imgs', ['Neutrino/imgs/install.png']),
+	('share/Neutrino/imgs', ['Neutrino/imgs/neutrino.png']),
 	('share/Neutrino/imgs', ['Neutrino/imgs/uninstall.png']),
-	('share/applications', ['Neutrino/neutrino.desktop']),
+	('share/applications', ['Neutrino/neutrino.desktop.desktop']),
 	('bin', ['Neutrino/neutrino']),
 	('share/Neutrino', ['Neutrino/ui.py']),
 	('share/Neutrino', ['Neutrino/README']),
+	('share/Neutrino/libs', ['Neutrino/libs/libreoffice.py']),
+	('share/Neutrino/libs', ['Neutrino/libs/dialog_ok.py']),
+	('share/Neutrino/libs', ['Neutrino/libs/dialog_error.py']),
+	('share/Neutrino/libs', ['Neutrino/libs/dialog.py']),
+	('share/Neutrino/libs', ['Neutrino/libs/elementary.py']),
+	('share/Neutrino/libs', ['Neutrino/libs/faenza.py']),
+	('share/Neutrino/libs', ['Neutrino/libs/gshell_elementary.py']),
+	('share/Neutrino/libs', ['Neutrino/libs/gshell_smooth.py']),
+	('share/Neutrino/libs', ['Neutrino/libs/gshell_atolm.py']),
 	('share/Neutrino/libs', ['Neutrino/libs/chromium.py']),
 	('share/Neutrino/libs', ['Neutrino/libs/Ssudo.py']),
 	('share/Neutrino/libs', ['Neutrino/libs/flash.py']),

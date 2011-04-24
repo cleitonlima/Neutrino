@@ -21,7 +21,7 @@
 
 
 #
-#This Module Installs Faenza Icon Theme
+#This Module Installs Elementary Icon Theme
 #
 from os import environ, path, remove
 from dialog import *
@@ -47,8 +47,8 @@ def install():
 	set = str(open("/tmp/neutrino/dialog_var").read())
 	if set == 'ok':
 		try:
-			if path.isdir("/usr/share/icons/Faenza") == False:
-				base.pkg_install("faenza-icon-theme")
+			if path.isdir("/usr/share/icons/elementary") == False:
+				base.pkg_install("elementary-icon-theme")
 				base.gsettings("icon-theme", "elementary")
 			else:
 				base.gsettings("icon-theme", "elementary")

@@ -163,6 +163,15 @@ class MainWindow(QtGui.QMainWindow):
         item.setIcon(icon_other)
         self.listWidget.item(14).setText(QtGui.QApplication.translate("MainWindow", "Tema Elementary para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
 	
+	#GShell Smooth-Inset Item
+        item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_other)
+        self.listWidget.item(15).setText(QtGui.QApplication.translate("MainWindow", "Tema Smooth-Inset para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
+	
+	#GShell Atolm Item
+        item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_other)
+        self.listWidget.item(16).setText(QtGui.QApplication.translate("MainWindow", "Tema Atolm para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#TextEdit
 	self.textEdit = QtGui.QTextEdit(self.centralwidget)
@@ -247,6 +256,10 @@ class MainWindow(QtGui.QMainWindow):
 			system("python libs/faenza.py")
 		elif row == "14":
 			system("python libs/gshell_elementary.py")
+		elif row == "15":
+			system("python libs/gshell_smooth.py")
+		elif row == "16":
+			system("python libs/gshell_atolm.py")
 		else:
 			pass
 	
@@ -297,9 +310,17 @@ class MainWindow(QtGui.QMainWindow):
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", FAENZA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "14":
-			GShell_elementary_DESCRIPTION = str("Tema Elementary, para o Gnome-Shell")
+			GShell_elementary_DESCRIPTION = str("Tema Elementary para o Gnome-Shell, por Half-Left")
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_elementary_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "15":
+			GShell_smooth_DESCRIPTION = str("Tema Smooth-Inset para o Gnome-Shell, por Half-Left")
+			self.textEdit.clear()
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_smooth_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "16":
+			GShell_atolm_DESCRIPTION = str("Tema Atolm para o Gnome-Shell, por Half-Left")
+			self.textEdit.clear()
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_atolm_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 
 		else:
 			print "Ops..."
