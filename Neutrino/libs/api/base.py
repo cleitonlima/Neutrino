@@ -101,7 +101,6 @@ class GBase ():
 		system("unzip "+home+theme+str(pkg_name))
 		remove(home+theme+str(pkg_name))
 		chdir(current)
-		system("gsettings set org.gnome.shell.extensions.user-theme name "+str(folder_name))
 
 	def gshell_theme_apply(GBase, folder_name):
 		system("gsettings set org.gnome.shell.extensions.user-theme name "+str(folder_name))

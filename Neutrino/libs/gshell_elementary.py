@@ -24,10 +24,7 @@
 #
 
 #Elementary Gnome-Shell Theme
-from os import environ, path
-from dialog import *
-from dialog_ok import *
-from dialog_error import *
+from os import environ, path, getenv
 
 desktoptype = environ.get('DESKTOP_SESSION')
 if "gnome" in desktoptype :
@@ -40,42 +37,12 @@ else:
 	pass
 
 def install():
-	if path.isdir("/usr/share/themes/gnome-shell/elementary") == True:
-		file = open("/tmp/neutrino/text_var", "w")
-		file.write("O Tema Elementary já está instalado.\n Deseja reinstalar?")
-		file.close()
-		app = QtGui.QApplication(sys.argv)
-		ex = NoYes()
-		ex.show()
-		app.exec_()
-		set = str(open("/tmp/neutrino/dialog_var").read())
-		if set == 'ok':
-			base.web_install("http://cleitonlima.com.br/neutrino/packages/gnome-shell-theme-elementary-1.0-1.fc15.noarch.rpm", "gnome-shell-theme-elementary-1.0-1.fc15.noarch.rpm")
-			file = open("/tmp/neutrino/text_var", "w")
-			file.write("Reinicie o Gnome-Shell para aplicar o tema. (ALT+F2 e digitar 'rt')")
-			file.close()
-			app1 = QtGui.QApplication(sys.argv)
-			ex1 = Ok()
-			ex1.show()
-			app1.exec_()
-		else:
-			file = open("/tmp/neutrino/text_var", "w")
-			file.write("O pacote já está instalado. Reinstalação Cancelada.")
-			file.close()
-			app2 = QtGui.QApplication(sys.argv)
-			ex2 = OkCancel()
-			ex2.show()
-			app2.exec_()
+	home = str(getenv("HOME"))
+	paths = str("/.themes/")
+	if path.isdir(home+paths+str("gs-elementary")) == True:
+		base.gshell_theme_apply("gs-elementary")
 	else:
-		base.web_install("http://cleitonlima.com.br/neutrino/packages/gnome-shell-theme-elementary-1.0-1.fc15.noarch.rpm", "gnome-shell-theme-elementary-1.0-1.fc15.noarch.rpm")
-		file = open("/tmp/neutrino/text_var", "w")
-		file.write("Reinicie o Gnome-Shell para aplicar o tema. (ALT+F2 e digitar 'rt')")
-		file.close()
-		app3 = QtGui.QApplication(sys.argv)
-		ex3 = Ok()
-		ex3.show()
-		app3.exec_()
-
-install()
+		base.gshell_theme_install("http://cleitonlima.com.br/neutrino/packages/gs-elementary.zip", "gs-elementary.zip")
+		base.gshell_theme_apply("gs-elementary")
 
 gshell_elementary_DESCRIPTION = str("Tema Elementary para o Gnome-Shell, por half-left. Após atualizar o Gnome-Shell, será necessário reinstalar o tema para que ele volte a aparecer.")

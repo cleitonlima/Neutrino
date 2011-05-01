@@ -23,14 +23,12 @@
 from os import environ, system
 import sys
 from PyQt4 import QtCore, QtGui
-from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, gshell_smooth
+from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, gshell_smooth, gshell_elementary, gshell_atolm, libreoffice, elementary, faenza
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
-
-	#MainWindow specifications (title, objectname and size)
-	#self.setWindowTitle(QtGui.QApplication.translate("Neutrino Project", "Neutrino Project", None, QtGui.QApplication.UnicodeUTF8))
+	
         self.setWindowTitle ("Neutrino Project")
 	self.setObjectName("MainWindow")
         self.resize(691, 524)
@@ -153,25 +151,35 @@ class MainWindow(QtGui.QMainWindow):
         item.setIcon(icon_other)
         self.listWidget.item(12).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Elementary", None, QtGui.QApplication.UnicodeUTF8))
 	
+	#Elementary Mono Dark Item
+        item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_other)
+        self.listWidget.item(13).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Elementary Mono Dark", None, QtGui.QApplication.UnicodeUTF8))
+	
 	#Faenza Item
         item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_other)
-        self.listWidget.item(13).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Faenza", None, QtGui.QApplication.UnicodeUTF8))
+        self.listWidget.item(14).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Faenza", None, QtGui.QApplication.UnicodeUTF8))
+	
+	#Faenza Dark Item
+        item = QtGui.QListWidgetItem(self.listWidget)
+        item.setIcon(icon_other)
+        self.listWidget.item(15).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Faenza Dark", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#GShell Elementary Item
         item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_other)
-        self.listWidget.item(14).setText(QtGui.QApplication.translate("MainWindow", "Tema Elementary para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
+        self.listWidget.item(16).setText(QtGui.QApplication.translate("MainWindow", "Tema Elementary para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#GShell Smooth-Inset Item
         item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_other)
-        self.listWidget.item(15).setText(QtGui.QApplication.translate("MainWindow", "Tema Smooth-Inset para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
+        self.listWidget.item(17).setText(QtGui.QApplication.translate("MainWindow", "Tema Smooth-Inset para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#GShell Atolm Item
         item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_other)
-        self.listWidget.item(16).setText(QtGui.QApplication.translate("MainWindow", "Tema Atolm para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
+        self.listWidget.item(18).setText(QtGui.QApplication.translate("MainWindow", "Tema Atolm para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#TextEdit
 	self.textEdit = QtGui.QTextEdit(self.centralwidget)
@@ -232,63 +240,77 @@ class MainWindow(QtGui.QMainWindow):
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				nvidia.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "1":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				nvidia.install_173()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "2":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				nvidia.install_96()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "3":
 			try:
 				message("Information", "Iniciando a tarefa. Clique em Ok")
 				codecs.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "4":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				libreoffice.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "5":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				fonts.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "6":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
-				nvidia.install()
+				system("beesu python libs/Ssudo.py")
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)	
-			system("beesu python libs/Ssudo.py")
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "7":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				openjdk.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "8":
-			system("beesu python libs/java.py")
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				system("beesu python libs/java.py")
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "9":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				gnash.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "10":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				flash.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 			flash.install()
@@ -296,26 +318,58 @@ class MainWindow(QtGui.QMainWindow):
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				chromium.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "12":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				elementary.install()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "13":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.install_dark()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)					
+		elif row == "14":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				faenza.install()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "15":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				faenza.install_dark()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "16":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				gshell_elementary.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
-		elif row == "13":
-			system("python libs/faenza.py")
-		elif row == "14":
-			system("python libs/gshell_elementary.py")
-		elif row == "15":
+		elif row == "17":
 			try:
 				message("Information", "Iniciando a tarefa. Clique em Ok.")
 				gshell_smooth.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)		
-		elif row == "16":
-			system("python libs/gshell_atolm.py")
+		elif row == "18":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				gshell_atolm.install()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		else:
 			pass
 	
@@ -332,6 +386,7 @@ class MainWindow(QtGui.QMainWindow):
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				elementary.remove()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 	
@@ -374,22 +429,28 @@ class MainWindow(QtGui.QMainWindow):
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", chromium.FLASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "12":
-			ELEMENTARY_DESCRIPTION = str("Tema de Ícones Elementary, para o Gnome.")
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", ELEMENTARY_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", elementary.elementary_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "13":
+			self.textEdit.clear()
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", elementary.elementarydark_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "14":
 			FAENZA_DESCRIPTION = str("Tema de Ícones Faenza, para o Gnome.")
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", FAENZA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-		elif row == "14":
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", faenza.FAENZA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "15":
+			FAENZA_DESCRIPTION = str("Tema de Ícones Faenza, para o Gnome.")
+			self.textEdit.clear()
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", faenza.FAENZAdark_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "16":
 			GShell_elementary_DESCRIPTION = str("Tema Elementary para o Gnome-Shell, por Half-Left")
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_elementary_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-		elif row == "15":
-			#GShell_smooth_DESCRIPTION = str("Tema Smooth-Inset para o Gnome-Shell, por Half-Left")
+		elif row == "17":
+			GShell_smooth_DESCRIPTION = str("Tema Smooth-Inset para o Gnome-Shell, por Half-Left")
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", gshell_smooth_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-		elif row == "16":
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", gshell_smooth.gshell_smooth_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+		elif row == "18":
 			GShell_atolm_DESCRIPTION = str("Tema Atolm para o Gnome-Shell, por Half-Left")
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_atolm_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))

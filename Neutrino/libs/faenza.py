@@ -24,9 +24,6 @@
 #This Module Installs Faenza Icon Theme
 #
 from os import environ, path, remove
-from dialog import *
-from dialog_ok import *
-from dialog_error import *
 
 desktoptype = environ.get('DESKTOP_SESSION')
 if "gnome" in desktoptype :
@@ -37,40 +34,23 @@ else:
 
 
 def install():
-	file = open("/tmp/neutrino/text_var", "w")
-	file.write("Deseja Instalar e Aplicar o\n Tema de Ícones Faenza?")
-	file.close()
-	app = QtGui.QApplication(sys.argv)
-	ex = NoYes()
-	ex.show()
-	app.exec_()
-	set = str(open("/tmp/neutrino/dialog_var").read())
-	if set == 'ok':
-		try:
-			if path.isdir("/usr/share/icons/Faenza") == False:
-				base.pkg_install("faenza-icon-theme")
-				base.gsettings("icon-theme", "Faenza")
-			else:
-				base.gsettings("icon-theme", "Faenza")
-		except:
-			pass
-		file = open("/tmp/neutrino/text_var", "w")
-		file.write("Processo Concluído.")
-		file.close()
-		app1 = QtGui.QApplication(sys.argv)
-		ex1 = Ok()
-		ex1.show()
-		app1.exec_()
+	if path.isdir("/usr/share/icons/Faenza") == False:
+		base.pkg_install("faenza-icon-theme")
+		base.gsettings("icon-theme", "Faenza")
 	else:
-		file = open("/tmp/neutrino/text_var", "w")
-		file.write("Processo Cancelado.")
-		file.close()
-		app1 = QtGui.QApplication(sys.argv)
-		ex1 = OkCancel()
-		ex1.show()
-		app1.exec_()
-install()
+		base.gsettings("icon-theme", "Faenza")
+		
 
-remove("/tmp/neutrino/text_var")
+def install_dark():
+	if path.isdir("/usr/share/icons/Faenza") == False:
+		base.pkg_install("faenza-icon-theme")
+		base.gsettings("icon-theme", "Faenza")
+	else:
+		base.gsettings("icon-theme", "Faenza")
+
+def remove ():
+	base.pkg_remove("faenza-icon-theme")
+	base.gsettings("icon-theme", "gnome")
 
 FAENZA_DESCRIPTION = str("Faenza Icon Theme for Gnome.")
+FAENZAdark_DESCRIPTION = str("Faenza Icon Theme for Gnome.")

@@ -48,5 +48,12 @@ def install():
 		
 	#Install Chromium Browser
 	base.pkg_install("chromium")
+
+def remove():
+	try:
+		base.pkg_remove("chromium")
+	except:
+		pass
+		
 	
 CHROMIUM_DESCRIPTION = str("Chromium is an open-source web browser, powered by WebKit.")

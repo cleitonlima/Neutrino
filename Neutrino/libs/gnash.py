@@ -38,5 +38,8 @@ GNASH = str("gnash-plugin")
 
 def install():
 	base.pkg_install("gnash gnash-plugin")
+
+def install():
+	base.pkg_remove("gnash gnash-plugin")
 	
 GNASH_DESCRIPTION = str("Gnash is capable of reading up to SWF v9 files and op-codes, but primarily supports SWF v7, with better SWF v8 and v9 support under heavy development. Gnash includes initial parser support for SWF v8 and v9.")

@@ -41,7 +41,7 @@ def install():
 	if path.isdir(home+paths+str("gs-smooth-inset")) == True:
 		base.gshell_theme_apply("gs-smooth-inset")
 	else:
-		base.gshell_theme_install("http://cleitonlima.com.br/neutrino/packages/gnome_shell___smooth_inset_by_half_left-d3b52v3.zip", "gnome_shell___smooth_inset_by_half_left-d3b52v3.zip")
+		base.gshell_theme_install("http://cleitonlima.com.br/neutrino/packages/gs-smooth-inset.zip", "gs-smooth-inset.zip")
 		base.gshell_theme_apply("gs-smooth-inset")
 
 

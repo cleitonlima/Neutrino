@@ -40,6 +40,13 @@ def install():
 	else:
 		base.gsettings("icon-theme", "elementary")
 
+def install_dark():
+	if path.isdir("/usr/share/icons/elementary") == False:
+		base.pkg_install("elementary-icon-theme")
+		base.gsettings("icon-theme", "elementary")
+	else:
+		base.gsettings("icon-theme", "elementary")
+
 def remove():
 	if path.isdir("/usr/share/icons/elementary") == True:
 		base.pkg_remove("elementary-icon-theme")
@@ -48,3 +55,4 @@ def remove():
 		pass
 
 elementary_DESCRIPTION = str("Tema de ícones Elementary para Gnome.")
+elementarydark_DESCRIPTION = str("Tema de ícones Elementary para Gnome.")
