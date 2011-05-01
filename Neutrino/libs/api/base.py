@@ -56,12 +56,18 @@ class GBase ():
 		#Function to make repos cache to yum.
 		#Will make install/remove package faster.
 		system("xterm -e beesu yum makecache")
+		
+	def repo_add(GBase, repo):
+		system("xterm -e beesu wget -P /etc/yum.repos.d/ "+str(repo))
 
 	def pkg_install (GBase, package):
 		#Function to add a package to system
 		#Using graphical interface
 		
 		system("gpk-install-package-name "+str(package))
+	
+	def pkg_install_alt(GBase, package):
+		system("xterm -e beesu yum install "+str(package))
 	
 	def web_install(GBase, adress, pkg_name):
 		#Function to install package from de web.

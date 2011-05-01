@@ -313,7 +313,6 @@ class MainWindow(QtGui.QMainWindow):
 				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
-			flash.install()
 		elif row == "11":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
@@ -375,14 +374,77 @@ class MainWindow(QtGui.QMainWindow):
 	
 	def remove_enable():
 		row = str(self.listWidget.currentRow())
-		if row == "12":
+		if row == "7":
+			self.remove.setEnabled(True)
+		elif row == "9":
+			self.remove.setEnabled(True)
+		elif row == "10":
+			self.remove.setEnabled(True)
+		elif row == "11":
+			self.remove.setEnabled(True)
+		elif row == "12":
+			self.remove.setEnabled(True)
+		elif row == "13":
+			self.remove.setEnabled(True)
+		elif row == "14":
+			self.remove.setEnabled(True)
+		elif row == "15":
 			self.remove.setEnabled(True)
 		else:
 			self.remove.setEnabled(False)
 			
 	def remove_fun():
 		row = str(self.listWidget.currentRow())
-		if row == "12":
+		if row == "7":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.remove()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "9":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.remove()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "10":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.remove()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "11":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.remove()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "12":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.remove()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "13":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.remove()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "14":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.remove()
+				message("Information", "Processo Concluído com Sucesso.")
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
+		elif row == "15":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
 				elementary.remove()
@@ -427,7 +489,7 @@ class MainWindow(QtGui.QMainWindow):
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", flash.FLASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "11":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", chromium.FLASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", chromium.CHROMIUM_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "12":
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", elementary.elementary_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
