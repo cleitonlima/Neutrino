@@ -20,8 +20,9 @@
 
 #API do Programa.
 
-from os import system, path, makedirs, getlogin, remove, listdir
+from os import system, path, makedirs, getlogin, remove, listdir, getenv, getcwd, chdir
 import urllib2
+import zlib
 from PyQt4 import QtCore, QtGui
 import dbus
 
@@ -86,7 +87,25 @@ class GBase ():
 	def gsettings (GBase, function, theme):
 		#Function to modify configurations in GNOME 3.
 		system("gsettings set org.gnome.desktop.interface "+str(function)+str(" "+str(theme)))
+	
+	def gshell_theme_install(GBase, adress, pkg_name):
+		#Function to add gnome-shell themes to user folder
+		u = urllib2.urlopen(str(adress))
+		home = str(getenv("HOME"))
+		theme = str("/.themes/")
+		localFile = open(home+theme+str(pkg_name), 'w')
+		localFile.write(u.read())
+		localFile.close()
+		current = str(getcwd())
+		chdir(home+theme)
+		system("unzip "+home+theme+str(pkg_name))
+		remove(home+theme+str(pkg_name))
+		chdir(current)
+		system("gsettings set org.gnome.shell.extensions.user-theme name "+str(folder_name))
 
+	def gshell_theme_apply(GBase, folder_name):
+		system("gsettings set org.gnome.shell.extensions.user-theme name "+str(folder_name))
+		
 #Qt4/KDE Module
 
 class KBase ():

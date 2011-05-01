@@ -23,7 +23,7 @@
 from os import environ, system
 import sys
 from PyQt4 import QtCore, QtGui
-from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia
+from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, gshell_smooth
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -200,7 +200,7 @@ class MainWindow(QtGui.QMainWindow):
         self.remove.setObjectName("commandLinkButton")
 	self.remove.setToolTip(QtGui.QApplication.translate("MainWindow", "Uninstall Selected Program", None, QtGui.QApplication.UnicodeUTF8))
         self.remove.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+-", None, QtGui.QApplication.UnicodeUTF8))
-	self.remove.setEnabled(False);
+	#self.remove.setEnabled(False)
 	
 	#Add Remove Item Button to Frame Internal Layout
         self.horizontalLayout.addWidget(self.remove)
@@ -222,46 +222,118 @@ class MainWindow(QtGui.QMainWindow):
         self.gridLayout.addWidget(self.frame, 3, 0, 1, 1)
 	
 	#Internal Functions
+	def message(slot, text):
+		QtGui.QMessageBox.information(self, str(slot),QtGui.QApplication.translate("MainWindow", str(text), None, QtGui.QApplication.UnicodeUTF8))
 	
 	#Execute Tasks Function
 	def install_fun():
 		row = str(self.listWidget.currentRow())
 		if row == "0":
-			nvidia.install()
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				nvidia.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "1":
-			nvidia.install_173()
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				nvidia.install_173()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "2":
-			nvidia.install_96()
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				nvidia.install_96()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "3":
-			codecs.install()
+			try:
+				message("Information", "Iniciando a tarefa. Clique em Ok")
+				codecs.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "4":
-			libreoffice.install()
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				libreoffice.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "5":
-			fonts.install()
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				fonts.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "6":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				nvidia.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 			system("beesu python libs/Ssudo.py")
 		elif row == "7":
-			openjdk.install()
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				openjdk.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "8":
 			system("beesu python libs/java.py")
 		elif row == "9":
-			gnash.install()
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				gnash.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "10":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				flash.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 			flash.install()
 		elif row == "11":
-			flash.install()
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				chromium.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "12":
-			system("python libs/elementary.py")
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "13":
 			system("python libs/faenza.py")
 		elif row == "14":
 			system("python libs/gshell_elementary.py")
 		elif row == "15":
-			system("python libs/gshell_smooth.py")
+			try:
+				message("Information", "Iniciando a tarefa. Clique em Ok.")
+				gshell_smooth.install()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)		
 		elif row == "16":
 			system("python libs/gshell_atolm.py")
 		else:
 			pass
+	
+	def remove_enable():
+		row = str(self.listWidget.currentRow())
+		if row == "12":
+			self.remove.setEnabled(True)
+		else:
+			self.remove.setEnabled(False)
+			
+	def remove_fun():
+		row = str(self.listWidget.currentRow())
+		if row == "12":
+			try:
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				elementary.remove()
+			except Exception, e:
+				message("Error", "Ocorreu o seguinte erro: %s" % e)
 	
 	def description ():
 		row = str(self.listWidget.currentRow())
@@ -314,9 +386,9 @@ class MainWindow(QtGui.QMainWindow):
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_elementary_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "15":
-			GShell_smooth_DESCRIPTION = str("Tema Smooth-Inset para o Gnome-Shell, por Half-Left")
+			#GShell_smooth_DESCRIPTION = str("Tema Smooth-Inset para o Gnome-Shell, por Half-Left")
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_smooth_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", gshell_smooth_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "16":
 			GShell_atolm_DESCRIPTION = str("Tema Atolm para o Gnome-Shell, por Half-Left")
 			self.textEdit.clear()
@@ -328,7 +400,9 @@ class MainWindow(QtGui.QMainWindow):
 	#Signals and Slots
 	
 	self.connect(self.install_bt, QtCore.SIGNAL("clicked()"), install_fun)
+	self.connect(self.remove, QtCore.SIGNAL("clicked()"), remove_fun)
 	self.connect(self.listWidget, QtCore.SIGNAL("currentRowChanged (int)"), description)
+	self.connect(self.listWidget, QtCore.SIGNAL("currentRowChanged (int)"), remove_enable)
 	
 app = QtGui.QApplication(sys.argv)
 main = MainWindow()
