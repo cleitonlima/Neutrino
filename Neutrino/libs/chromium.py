@@ -37,8 +37,8 @@ else:
 	pass
 def install():
 	#Adding Chromium Repo
-	if path.isfile("/etc/yum.repos.d/fedora-chromium.repo") == False:
-		base.repo_add("http://repos.fedorapeople.org/repos/spot/chromium/fedora-chromium.repo")
+	if path.isfile("/etc/yum.repos.d/fedora-chromium-stable.repo") == False:
+		base.repo_add("http://repos.fedorapeople.org/repos/spot/chromium-stable/fedora-chromium-stable.repo")
 	else:
 		pass
 		

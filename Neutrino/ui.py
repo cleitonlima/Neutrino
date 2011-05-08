@@ -259,11 +259,11 @@ class MainWindow(QtGui.QMainWindow):
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "3":
 			try:
-				message("Information", "Iniciando a tarefa. Clique em Ok")
+				message("information", "Iniciando a tarefa. Clique em Ok")
 				codecs.install()
-				message("Information", "Processo Concluído com Sucesso.")
+				message("information", "Processo Concluído com Sucesso.")
 			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)	
+				message("critical", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "4":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
@@ -473,12 +473,12 @@ class MainWindow(QtGui.QMainWindow):
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", fonts.FONTS_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "6":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", "Setup Sudo Usage in Fedora", None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", "Configura o uso do Sudo no Fedora.", None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "7":
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", openjdk.OPENJDK_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "8":
-			JAVA_DESCRIPTION = str("The Java Platform Standard Edition Runtime Environment (JRE) contains everything necessary to run applets and applications designed for the java platform. This includes the Java virtual machine, plus the Java platform classes and supporting files.")
+			JAVA_DESCRIPTION = str("O JRE consiste no Java Virtual Machine (JVM), nas classes centrais e bibliotecas de suporte da plataforma Java. O JRE representa a parte de tempo de execução do software Java, que é tudo de que você precisa para executá-lo em um navegador da Web.")
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", JAVA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "9":

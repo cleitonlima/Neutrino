@@ -1,4 +1,5 @@
 #!/usr/bin/ env python
+# -*- coding: utf-8 -*-
 
 #Neutrino Project
 #Por Cleiton Lima <cleitonlima@fedoraproject.org>
@@ -46,4 +47,4 @@ def install():
 	system("beesu xterm -e unopkg add --shared /tmp/neutrino/CoGrOO-AddOn-3.1.0-bin.oxt")
 	remove("/tmp/neutrino/CoGrOO-AddOn-3.1.0-bin.oxt")
 
-LIBO_DESCRIPTION = str("OpenSource Office suite, compatible with Microsoft Office formats and others open formats, like ODF")
+LIBO_DESCRIPTION = str("Suíte de escritório de código aberto, compatível com formatos do MS Office e outros formatos abertos, como o ODF.")

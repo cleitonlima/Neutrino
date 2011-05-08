@@ -1,6 +1,6 @@
 
 [Desktop Entry]
-Version=0.6
+Version=0.9
 Encoding=UTF-8
 Name=Neutrino
 GenericName=Neutrino
@@ -12,4 +12,4 @@ Type=Application
 Icon=/usr/share/Neutrino/imgs/neutrino.png
 StartupNotify=true
 X-Desktop-File-Install-Version=0.16
-Name[pt_BR]=neutrino.desktop
+Name[pt_BR]=Neutrino

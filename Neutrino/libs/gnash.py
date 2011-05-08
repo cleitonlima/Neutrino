@@ -1,4 +1,5 @@
 #!/usr/bin/ env python
+# -*- coding: utf-8 -*-
 
 #Neutrino Project
 #Por Cleiton Lima <cleitonlima@fedoraproject.org>
@@ -42,4 +43,4 @@ def install():
 def remove():
 	base.pkg_remove("gnash gnash-plugin")
 	
-GNASH_DESCRIPTION = str("Gnash is capable of reading up to SWF v9 files and op-codes, but primarily supports SWF v7, with better SWF v8 and v9 support under heavy development. Gnash includes initial parser support for SWF v8 and v9.")
+GNASH_DESCRIPTION = str("Opção de código aberto para substituir o Flash Plugin. Compatível com a versão 7, bom suporte a versão 8 e com suporte a versão 9 em desenvolvimento contínuo.")

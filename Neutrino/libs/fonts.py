@@ -1,4 +1,6 @@
 #!/usr/bin env python
+# -*- coding: utf-8 -*-
+
 #Project Neutrino
 #Por Cleiton Lima <cleitonlima@fedoraproject.org>
 
@@ -38,7 +40,7 @@ else:
 
 def install():
 	#Install Extra Fonts in repository
-	base.pkg_install(FONTS)
+	base.pkg_install_alt(FONTS)
 
 	#Install Chkfont
 	base.web_install(CHKFONT, "chkfontpath-1.10.1-2.fc13.i686.rpm")
@@ -46,4 +48,4 @@ def install():
 	#Install Microsoft Fonts
 	base.web_install(MSTTFONT, "msttcorefonts-2.0-2.noarch.rpm")
 
-FONTS_DESCRIPTION = str("Collection of high quality TrueType fonts, default in any MS Windows installation. These are also the main webfonts as specified in microsoft.com/typography\nThe fonts:\nAndale Mono, Arial, Arial Black, Comic, Courier New, Georgia, Impact, Lucida Sans, Lucida Console, Microsoft Sans Serif, Symbol, Tahoma, Times New Roman, Trebuchet, Verdana, Webdings, Wingdings ")
+FONTS_DESCRIPTION = str("Coleção de fontes TrueType de alta qualidade.")

@@ -66,4 +66,4 @@ def install():
 		app1.exec_()
 install()
 
-SUDO_DESCRIPTION = str("Setup Sudo usage in Fedora")
+SUDO_DESCRIPTION = str("Configurar o uso do Sudo no Fedora.")

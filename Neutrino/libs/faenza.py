@@ -52,5 +52,5 @@ def remove ():
 	base.pkg_remove("faenza-icon-theme")
 	base.gsettings("icon-theme", "gnome")
 
-FAENZA_DESCRIPTION = str("Faenza Icon Theme for Gnome.")
-FAENZAdark_DESCRIPTION = str("Faenza Icon Theme for Gnome.")
+FAENZA_DESCRIPTION = str("Tema de ícones Faenza.")
+FAENZAdark_DESCRIPTION = str("Tema de ícones Faenza, habilita a versão para temas escuros.")

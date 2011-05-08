@@ -48,4 +48,4 @@ def install():
 	#Install Flash Plugin from repo
 	base.pkg_install(CODEC_PROP)
 
-CODEC_DESCRIPTION = str("Install all the codecs necessary to play mp3, avi and other formats.")
+CODEC_DESCRIPTION = str("Todos os codecs necessários para tocar arquivos mp3, avi e outros formatos.")

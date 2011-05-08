@@ -46,4 +46,4 @@ def install():
 def remove ():
 	base.pkg_remove(FLASH)
 	
-FLASH_DESCRIPTION = str("O Adobe Flash Player é um runtime de aplicativo\n baseado em navegador entre plataformas que oferece uma exibição isenta\n de aplicativos expressivos, conteúdo e vídeos entre telas e navegadores.\n O Flash Player 10.2 fornece maravilhoso vídeo HD, renderização de gráficos mais rápidos e alto desempenho em telas móveis\n e foi criado para aproveitar as capacidades do dispositivo original -- permitindo experiências de usuário mais envolventes e avançadas.")
+FLASH_DESCRIPTION = str("Adobe Flash Plugin 10.2.159.1 Suporte Completo: Mozilla SeaMonkey 1.0+, Firefox 1.5+, Mozilla 1.7.13+")
