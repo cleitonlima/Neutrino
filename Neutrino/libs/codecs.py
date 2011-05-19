@@ -41,9 +41,9 @@ RPMFUSION_NONFREE = str("http://download1.rpmfusion.org/nonfree/fedora/rpmfusion
 def install():
 	#Check if repo RPMFusion already exists
 	if path.isfile("/etc/yum.repos.d/rpmfusion-free.repo") == False:
-		base.webinstall(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
+		base.web_install(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
 	elif path.isfile("/etc/yum.repos.d/rpmfusion-nonfree.repo") == False:
-		base.webinstall(RPMFUSION_NONFREE, "rpmfusion-nonfree-release-stable.noarch.rpm")
+		base.web_install(RPMFUSION_NONFREE, "rpmfusion-nonfree-release-stable.noarch.rpm")
 	
 	#Install Flash Plugin from repo
 	base.pkg_install(CODEC_PROP)
