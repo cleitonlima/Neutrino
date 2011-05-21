@@ -20,7 +20,7 @@
 
 
 #por Cleiton Lima <cleitonlima@fedoraproject.org>
-#Adobe Flash Plugin Install
+#Installation of AMD Cards' Proprietary driver
 
 from os import chdir, path, system, environ
 desktoptype = environ.get('DESKTOP_SESSION')
@@ -34,16 +34,14 @@ elif "kde" in desktoptype:
 else:
 	pass
 
-FLASH = str("flash-plugin")
-
 def install():
-	#Check Adobe's repositoy
-	if path.isfile("/etc/yum.repos.d/adobe-linux-i386.repo") == False:
-		base.web_install("http://espacoliberdade.blog.br/neutrino/packages/adobe-release-i386-1.0-1.noarch.rpm", "adobe-release-i386-1.0-1.noarch.rpm")
-	#Install Flash Plugin from repo
-	base.pkg_install(FLASH)
-
-def remove ():
-	base.pkg_remove(FLASH)
+	#Check if repo RPMFusion already exists
+	if path.isfile("/etc/yum.repos.d/rpmfusion-free.repo") == False:
+		base.web_install(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
+	elif path.isfile("/etc/yum.repos.d/rpmfusion-nonfree.repo") == False:
+		base.web_install(RPMFUSION_NONFREE, "rpmfusion-nonfree-release-stable.noarch.rpm")
 	
-FLASH_DESCRIPTION = str("Adobe Flash Plugin 10.2.159.1 Suporte Completo: Mozilla SeaMonkey 1.0+, Firefox 1.5+, Mozilla 1.7.13+")
+	#Install Catalyst Driver
+	base.pkg_install("xorg-x11-drv-catalyst")
+
+AMD_DESCRIPTION = str("Esse pacote fornece a versão mais recente do driver para placas de vídeo AMD.")
