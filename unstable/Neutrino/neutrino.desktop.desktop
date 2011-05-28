@@ -1,0 +1,15 @@
+
+[Desktop Entry]
+Version=0.9
+Encoding=UTF-8
+Name=Neutrino
+GenericName=Neutrino
+Comment=Automated configurations
+Categories=System;X-Red-Hat-Base;X-Fedora;
+Exec=/usr/bin/neutrino
+Terminal=false
+Type=Application
+Icon=/usr/share/Neutrino/imgs/neutrino.png
+StartupNotify=true
+X-Desktop-File-Install-Version=0.16
+Name[pt_BR]=Neutrino
