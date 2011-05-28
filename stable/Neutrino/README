@@ -1,6 +1,7 @@
 This is Neutrino Project, a tool to configure some parts of Fedora Linux. Neutrino will provide:
 
 -Easy Nvidia driver (non-free) install;
+-Easy ATI driver install;
 -Setup sudo;
 -And much more!
 
@@ -10,30 +11,15 @@ Download de files from Git and execute ui.py:
 
 python ui.py
 
-Wanna the RPMs of Neutrino? They're here: http://cleitonlima.com.br/neutrino-project/
-
 Requeriments (available in  Fedora's Repo):
 
 > PyQt4;
 > Xterm;
 > Beesu;
-> Gnome-PackageKit (on Gnome) or KPackageKit (on KDE);
-> gnome-shell-extensions-user-theme;
+> Gnome-PackageKit (on Gnome);
+> KPackageKit (on KDE);
 
 Changes
-
-Version 0.9.2 (08-05-2011 14:46)
-
-> Translated to pt_BR all the descriptions of modules;
-> Solved chromium repo add permission problem;
-> Changed chromium install repo from unstable to stable;
-
-Version 0.8.0
-
-> Added LibreOffice Suite install;
-> Added Gnome-Shell Themes;
-> Added Faenza and Elementary Icon Themes installation.
-
 
 Version 0.2.0 (6-03-2011 23:10)
 

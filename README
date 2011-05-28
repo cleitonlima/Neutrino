@@ -20,7 +20,13 @@ Requeriments (available in  Fedora's Repo):
 > Gnome-PackageKit (on Gnome) or KPackageKit (on KDE);
 > gnome-shell-extensions-user-theme;
 
-Changes
+Changelog:
+
+Version 0.9.6 (28/05/2011 20:15)
+
+> Solved bug "Ocorreu o seguinte erro: HTTP Error 500: Internal Server Error" in libreoffice.py, flash.py;
+> Solved bug "command webinstall not found" in nvidia.py
+> Added options to remove Flash Plugin, Gnash Plugin, Elementary Icon Theme, Faenza Icon Theme and Chromium Browser;
 
 Version 0.9.2 (08-05-2011 14:46)
 
