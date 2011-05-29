@@ -26,7 +26,6 @@
 
 from os import chdir, path, system, environ
 desktoptype = environ.get('DESKTOP_SESSION')
-print desktoptype
 if "gnome" in desktoptype :
 	from api.base import GBase
 	base = GBase()

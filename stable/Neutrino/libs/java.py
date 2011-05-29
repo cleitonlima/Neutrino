@@ -22,7 +22,6 @@
 #
 from os import environ, chdir, symlink, system
 desktoptype = environ.get('DESKTOP_SESSION')
-print desktoptype
 if "gnome" in desktoptype :
 	from api.base import GBase
 	base = GBase()
@@ -32,15 +31,16 @@ elif "kde" in desktoptype:
 else:
 	pass
 
-JAVA = str("http://cleitonlima.com.br/neutrino/packages/jre-6u24-linux-i586.rpm")
+JAVA = str("http://cleitonlima.com.br/neutrino/packages/jre-6u25-linux-i586.rpm")
 
 #Install Extra Fonts in repository
-base.web_install(JAVA, "jre-6u24-linux-i586.rpm")
+print "Baixando o Pacote jre-6u25-linux-i586.rpm. Aguarde."
+base.web_install_alt(JAVA, "jre-6u25-linux-i586.rpm")
 	
 #Set our installed java as default
-system('alternatives --install /usr/bin/java java /usr/java/jre1.6.0_24/bin/java 20000')
-system('alternatives --install /usr/bin/javaws javaws /usr/java/jre1.6.0_24/bin/javaws 20000')
+system('alternatives --install /usr/bin/java java /usr/java/jre1.6.0_25/bin/java 20000')
+system('alternatives --install /usr/bin/javaws javaws /usr/java/jre1.6.0_25/bin/javaws 20000')
 	
 #Create Symbolic link to Java plugin in Firefox's plugin Folder
 chdir("/usr/lib/mozilla/plugins/")
-symlink("/usr/java/jre1.6.0_24/lib/i386/libnpjp2.so", "libnpjp2.so")
+symlink("/usr/java/jre1.6.0_25/lib/i386/libnpjp2.so", "libnpjp2.so")

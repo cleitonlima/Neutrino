@@ -85,6 +85,24 @@ class GBase ():
 		#Using os.remove to delete the file
 		remove("/tmp/neutrino/"+str(pkg_name))
 	
+	def web_install_alt(GBase, adress, pkg_name):
+		#Function to install package from de web.
+		#Alternative Version use yum instead of PackageKit.
+		#Actually, used only on java.py module.
+		#Will be util for rpmfusion repos install, for example.
+		
+		#Using urllib2 to download de file
+		u = urllib2.urlopen(str(adress))
+		localFile = open('/tmp/neutrino/'+str(pkg_name), 'w')
+		localFile.write(u.read())
+		localFile.close()
+		
+		#Using PackageKit to Install the file
+		system("yum install /tmp/neutrino/"+str(pkg_name))
+		
+		#Using os.remove to delete the file
+		remove("/tmp/neutrino/"+str(pkg_name))
+	
 	def pkg_remove (GBase, package):
 		#Function to remove a package from the system
 		#No easy graphical interface is available, using text mode, with gnome-terminal and yum.

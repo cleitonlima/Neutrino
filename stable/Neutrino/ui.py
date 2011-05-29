@@ -307,7 +307,7 @@ class MainWindow(QtGui.QMainWindow):
 		elif row == "9":
 			try:
 				message("Information", "Iniciando a tarefa. clique em OK.")
-				system("beesu python libs/java.py")
+				system("xterm -e su -c 'python libs/java.py'")
 				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
