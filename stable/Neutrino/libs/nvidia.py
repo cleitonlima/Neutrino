@@ -50,6 +50,9 @@ def install ():
 	
 	#Install Nvidia Driver
 	base.pkg_install(NVIDIA_PROP)
+	
+	#Add Nouveau to blacklist
+	system("beesu python nouveau.py")	
 
 #Script para Nvidia GeForce FX
 def install_173 ():
@@ -62,6 +65,9 @@ def install_173 ():
 	#Install Nvidia Driver
 	base.pkg_install(NVIDIA_PROP_173)
 
+	#Add Nouveau to blacklist
+        system("beesu python nouveau.py") 
+
 #Script para Driver Nvidia para placas GeForce 2, 3, 4 e Quadro 4
 def install_96 ():
 	#Check if repo RPMFusion already exists
@@ -73,6 +79,9 @@ def install_96 ():
 	
 	#Install Nvidia Driver
 	base.pkg_install(NVIDIA_PROP_96)
+
+	#Add Nouveau to blacklist
+        system("beesu python nouveau.py") 
 
 NVIDIA_DESCRIPTION = str("Driver Nvidia para placas GeForce 6, 7, 8, 9, série 200, série 300 e superiores. Mais informações: http://www.nvidia.com/object/IO_18897.html")
 NVIDIA_173_DESCRIPTION = str("Driver Nvidia para placas GeForce FX. Mais informações: http://www.nvidia.com/object/IO_18897.html")
