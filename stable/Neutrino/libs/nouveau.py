@@ -22,7 +22,7 @@
 #Used by nvidia.py module
 #Must be executed as root
 
-from os import system, remove
+from os import system, remove, chdir
 
 
 file = open("/boot/grub/grub.conf", "r").readlines()
