@@ -19,51 +19,37 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Neutrino.  If not, see <http://www.gnu.org/licenses/>.
 
-#Setup sudo in Fedora
-from os import getlogin, getenv, chdir
-from dialog import *
-from dialog_ok import *
-from dialog_error import *
+#Used by nvidia.py module
+#Must be executed as root
 
-def install():
-	file = open("/tmp/neutrino/text_var", "w")
-	file.write("Deseja executar a modificação?")
-	file.close()
-	app = QtGui.QApplication(sys.argv)
-	ex = NoYes()
-	ex.show()
-	app.exec_()
-	set = str(open("/tmp/neutrino/dialog_var").read())
-	if set == 'ok':
-		try:
-			install()
-			line = str("\n")
-			user = str(getlogin())
-			print user
-			cmd = str(" ALL=(ALL) NOPASSWD:ALL")
-			chdir(str("/etc/"))
-			sudoers = open ('sudoers', 'r').readlines()
-			sudoers.append(line+user+cmd)
-			sudo = open('sudoers', 'w')
-			sudo.writelines(sudoers)
-			sudo.close
-		except:
-			pass
-		file = open("/tmp/neutrino/text_var", "w")
-		file.write("Processo Concluído.")
-		file.close()
-		app1 = QtGui.QApplication(sys.argv)
-		ex1 = Ok()
-		ex1.show()
-		app1.exec_()
-	else:
-		file = open("/tmp/neutrino/text_var", "w")
-		file.write("Processo Cancelado.")
-		file.close()
-		app1 = QtGui.QApplication(sys.argv)
-		ex1 = OkCancel()
-		ex1.show()
-		app1.exec_()
-install()
+from os import system, remove
 
-SUDO_DESCRIPTION = str("Configurar o uso do Sudo no Fedora.")
+
+file = open("/boot/grub/grub.conf", "r").readlines()
+
+for position, line in enumerate(file):
+	if "kernel /vmlinuz-2" in line:
+		text = str(' rdblacklist=nouveau')
+		br = str('\n')
+		sline = line.split("\n")
+		system("xrandr | grep '*' | cut -d' ' -f4 > /tmp/neutrino/resolution.txt")
+		reso = open("/tmp/neutrino/resolution.txt", 'r').read()
+		resolution = reso.split("\n")
+		if resolution[0] == "800x600":
+			vga = str(" vga=0x314")
+		elif resolution[0] == "1024x768":
+			vga = str(" vga=0x317")
+		elif resolution[0] == "1152x864":
+			vga = str(" vga=0x163")
+		elif resolution[0] == "1280x1024":
+			vga = str(" vga=0x31A")
+		elif resolution[0] == "1600x1200":
+			vga = str(" vga=0x31E")
+		else:
+			vga = str(" vga=0x317")
+		nline = str(str(sline[0])+text+vga+br)
+		print nline
+		file[position] = nline
+		
+open("/boot/grub/grub.conf", "w").writelines(file)
+remove("/tmp/neutrino/resolution.txt")
