@@ -28,7 +28,7 @@ from os import chdir, path, system, environ
 desktoptype = environ.get('DESKTOP_SESSION')
 print desktoptype
 if "gnome" in desktoptype :
-	from api.base import GBase
+	from api.neutrino import GBase
 	base = GBase()
 elif "kde" in desktoptype:
 	from api.base import KBase
@@ -38,16 +38,20 @@ else:
 def install():
 	#Adding Chromium Repo
 	if path.isfile("/etc/yum.repos.d/fedora-chromium-stable.repo") == False:
-		base.repo_add("http://repos.fedorapeople.org/repos/spot/chromium-stable/fedora-chromium-stable.repo")
+		base.repo_add("http://repos.fedorapeople.org/repos/spot/chromium-stable/", "fedora-chromium-stable.repo")
 	else:
 		pass
 		
 	#Install Chromium Browser
-	base.pkg_install("chromium")
+	package = ["chromium"]
+	base.pkg_install(package)
+
+install()
 
 def remove():
 	try:
-		base.pkg_remove("chromium")
+		package = ["chromium"]
+		base.pkg_remove(package)
 	except:
 		pass
 		

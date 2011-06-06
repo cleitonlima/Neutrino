@@ -27,7 +27,7 @@ from os import environ, path, remove
 
 desktoptype = environ.get('DESKTOP_SESSION')
 if "gnome" in desktoptype :
-	from api.base import GBase
+	from api.neutrino import GBase
 	base = GBase()
 else:
 	exit()
@@ -35,22 +35,25 @@ else:
 
 def install():
 	if path.isdir("/usr/share/icons/elementary") == False:
-		base.pkg_install("elementary-icon-theme")
+		package = ['elementary-icon-theme']
+		base.pkg_install(package)
 		base.gsettings("icon-theme", "elementary")
 	else:
 		base.gsettings("icon-theme", "elementary")
 
 def install_dark():
 	if path.isdir("/usr/share/icons/elementary") == False:
-		base.pkg_install("elementary-icon-theme")
+		package = ['elementary-icon-theme']
+		base.pkg_install(package)
 		base.gsettings("icon-theme", "elementary")
 	else:
 		base.gsettings("icon-theme", "elementary")
 
 def remove():
 	if path.isdir("/usr/share/icons/elementary") == True:
-		base.pkg_remove("elementary-icon-theme")
-		base.gsettings("icon-theme", "gnome")
+		package = ['elementary-icon-theme']
+		base.pkg_remove(package)
+		base.gsettings("icon-theme", "Fedora")
 	else:
 		pass
 
