@@ -1,5 +1,7 @@
-#!/usr/bin env python
-#Project Neutrino
+#!/usr/bin/ env python
+# -*- coding: utf-8 -*-
+
+#Neutrino Project
 #Por Cleiton Lima <cleitonlima@fedoraproject.org>
 
 #This file is part of Neutrino Project.
@@ -17,24 +19,31 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Neutrino.  If not, see <http://www.gnu.org/licenses/>.
 
+
 #
-#This script will install Oracle Java and configure the javaplugin with Firefox
+#This Module Installs Faenza Icon Theme
 #
-from os import environ, chdir, symlink, system
+from os import environ, path, remove
+
 desktoptype = environ.get('DESKTOP_SESSION')
 from api.base import GBase
 base = GBase()
 
 
-JAVA = str("http://cleitonlima.com.br/neutrino/packages/jre-6u24-linux-i586.rpm")
+def install():
+	if path.isdir("/usr/share/icons/Faenza") == False:
+		package = ["faenza-icon-theme"]
+		base.pkg_install(package)
+		
 
-#Install Extra Fonts in repository
-base.web_install(JAVA, "jre-6u24-linux-i586.rpm")
-	
-#Set our installed java as default
-system('alternatives --install /usr/bin/java java /usr/java/jre1.6.0_24/bin/java 20000')
-system('alternatives --install /usr/bin/javaws javaws /usr/java/jre1.6.0_24/bin/javaws 20000')
-	
-#Create Symbolic link to Java plugin in Firefox's plugin Folder
-chdir("/usr/lib/mozilla/plugins/")
-symlink("/usr/java/jre1.6.0_24/lib/i386/libnpjp2.so", "libnpjp2.so")
+def install_dark():
+	if path.isdir("/usr/share/icons/Faenza") == False:
+		package = ["faenza-icon-theme"]
+		base.pkg_install(package)
+
+def remove ():
+	package = ["faenza-icon-theme"]
+	base.pkg_remove(package)
+
+FAENZA_DESCRIPTION = str("Tema de ícones Faenza.")
+FAENZAdark_DESCRIPTION = str("Tema de ícones Faenza, habilita a versão para temas escuros.")

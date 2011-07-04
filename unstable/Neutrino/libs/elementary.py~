@@ -21,28 +21,39 @@
 
 
 #
-#This Module Installs Faenza Icon Theme
+#This Module Installs Elementary Icon Theme
 #
 from os import environ, path, remove
 desktoptype = environ.get('DESKTOP_SESSION')
+
 from api.neutrino import GBase
 base = GBase()
 
 
+
 def install():
-	if path.isdir("/usr/share/icons/Faenza") == False:
-		package = ["faenza-icon-theme"]
+	if path.isdir("/usr/share/icons/elementary") == False:
+		package = ['elementary-icon-theme']
 		base.pkg_install(package)
-		
+		base.gsettings("icon-theme", "elementary")
+	else:
+		base.gsettings("icon-theme", "elementary")
 
 def install_dark():
-	if path.isdir("/usr/share/icons/Faenza") == False:
-		package = ["faenza-icon-theme"]
+	if path.isdir("/usr/share/icons/elementary") == False:
+		package = ['elementary-icon-theme']
 		base.pkg_install(package)
+		base.gsettings("icon-theme", "elementary")
+	else:
+		base.gsettings("icon-theme", "elementary")
 
-def remove ():
-	package = ["faenza-icon-theme"]
-	base.pkg_remove(package)
+def remove():
+	if path.isdir("/usr/share/icons/elementary") == True:
+		package = ['elementary-icon-theme']
+		base.pkg_remove(package)
+		base.gsettings("icon-theme", "Fedora")
+	else:
+		pass
 
-FAENZA_DESCRIPTION = str("Tema de ícones Faenza.")
-FAENZAdark_DESCRIPTION = str("Tema de ícones Faenza, habilita a versão para temas escuros.")
+elementary_DESCRIPTION = str("Tema de ícones Elementary para Gnome.")
+elementarydark_DESCRIPTION = str("Tema de ícones Elementary para Gnome.")

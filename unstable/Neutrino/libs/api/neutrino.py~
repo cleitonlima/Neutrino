@@ -25,6 +25,7 @@ import urllib2
 import zlib
 from PyQt4 import QtCore, QtGui
 import dbus
+import yum
 
 if not path.exists("/tmp/neutrino"):
     makedirs("/tmp/neutrino")
@@ -52,22 +53,26 @@ Ssudo_DESCRIPTION = str("Allow current user to execute programs and commands usi
 #Gnome Module
 
 class GBase ():
-	def cacher():
-		#Function to make repos cache to yum.
-		#Will make install/remove package faster.
-		system("xterm -e beesu yum makecache")
-		
-	def repo_add(GBase, repo):
-		system("xterm -e beesu wget -P /etc/yum.repos.d/ "+str(repo))
+	def repo_add(GBase, adress, repo):
+		u = urllib2.urlopen(str(adress)+str(repo))
+		localFile = open('/etc/yum.repos.d/'+str(repo), 'w')
+		localFile.write(u.read())
+		localFile.close()
 
 	def pkg_install (GBase, package):
 		#Function to add a package to system
 		#Using graphical interface
-		
-		system("gpk-install-package-name "+str(package))
-	
-	def pkg_install_alt(GBase, package):
-		system("xterm -e beesu yum install "+str(package))
+		yb = yum.YumBase()
+		for item in package:
+			print item
+			yb.install(name=item)
+		yb.doConfigSetup()
+		yb.doRepoSetup()
+		yb.doSackSetup()
+		yb.doTsSetup()
+		yb.doRpmDBSetup()
+		yb.resolveDeps()		
+		yb.processTransaction()
 	
 	def web_install(GBase, adress, pkg_name):
 		#Function to install package from de web.
@@ -80,7 +85,8 @@ class GBase ():
 		localFile.close()
 		
 		#Using PackageKit to Install the file
-		system("gpk-install-local-file /tmp/neutrino/"+str(pkg_name))
+		for item in pkg_name:
+			lp = yum.packages.YumLocalPackage(filename=item)
 		
 		#Using os.remove to delete the file
 		remove("/tmp/neutrino/"+str(pkg_name))
@@ -88,7 +94,17 @@ class GBase ():
 	def pkg_remove (GBase, package):
 		#Function to remove a package from the system
 		#No easy graphical interface is available, using text mode, with gnome-terminal and yum.
-		system("xterm -e beesu yum remove "+str(package))
+		yb = yum.YumBase()
+		for item in package:
+			print item
+			yb.remove(name=item)
+		yb.doConfigSetup()
+		yb.doRepoSetup()
+		yb.doSackSetup()
+		yb.doTsSetup()
+		yb.doRpmDBSetup()
+		yb.resolveDeps()		
+		yb.processTransaction()
 	
 	def gsettings (GBase, function, theme):
 		#Function to modify configurations in GNOME 3.

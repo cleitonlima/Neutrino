@@ -23,7 +23,7 @@
 from os import environ, system
 import sys
 from PyQt4 import QtCore, QtGui
-from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, gshell_smooth, gshell_elementary, gshell_atolm, libreoffice, elementary, faenza, amd
+from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, libreoffice, elementary, faenza, amd
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):

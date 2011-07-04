@@ -24,13 +24,10 @@
 #This Module Installs Elementary Icon Theme
 #
 from os import environ, path, remove
-
 desktoptype = environ.get('DESKTOP_SESSION')
-if "gnome" in desktoptype :
-	from api.neutrino import GBase
-	base = GBase()
-else:
-	exit()
+from api.neutrino import GBase
+base = GBase()
+
 
 
 def install():

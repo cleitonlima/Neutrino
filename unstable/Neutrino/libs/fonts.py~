@@ -29,7 +29,7 @@ MSTTFONT = str("http://cleitonlima.com.br/neutrino/packages/msttcorefonts-2.0-2.
 
 from os import environ
 desktoptype = environ.get('DESKTOP_SESSION')
-from api.neutrino import GBase
+from api.base import GBase
 base = GBase()
 
 

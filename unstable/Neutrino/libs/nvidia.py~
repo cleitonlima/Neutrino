@@ -24,7 +24,7 @@
 
 from os import chdir, path, system, environ
 desktoptype = environ.get('DESKTOP_SESSION')
-from api.neutrino import GBase
+from api.base import GBase
 base = GBase()
 
 

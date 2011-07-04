@@ -1,5 +1,7 @@
-#!/usr/bin env python
-#Project Neutrino
+#!/usr/bin/ env python
+# -*- coding: utf-8 -*-
+
+#Neutrino Project
 #Por Cleiton Lima <cleitonlima@fedoraproject.org>
 
 #This file is part of Neutrino Project.
@@ -17,24 +19,22 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Neutrino.  If not, see <http://www.gnu.org/licenses/>.
 
+
 #
-#This script will install Oracle Java and configure the javaplugin with Firefox
+#This module will install Gnash, opensource alternative to Adobe Flash
 #
-from os import environ, chdir, symlink, system
+from os import environ
 desktoptype = environ.get('DESKTOP_SESSION')
 from api.base import GBase
 base = GBase()
 
 
-JAVA = str("http://cleitonlima.com.br/neutrino/packages/jre-6u24-linux-i586.rpm")
+GNASH = str("gnash-plugin")
 
-#Install Extra Fonts in repository
-base.web_install(JAVA, "jre-6u24-linux-i586.rpm")
+def install():
+	base.pkg_install("gnash gnash-plugin")
+
+def remove():
+	base.pkg_remove("gnash gnash-plugin")
 	
-#Set our installed java as default
-system('alternatives --install /usr/bin/java java /usr/java/jre1.6.0_24/bin/java 20000')
-system('alternatives --install /usr/bin/javaws javaws /usr/java/jre1.6.0_24/bin/javaws 20000')
-	
-#Create Symbolic link to Java plugin in Firefox's plugin Folder
-chdir("/usr/lib/mozilla/plugins/")
-symlink("/usr/java/jre1.6.0_24/lib/i386/libnpjp2.so", "libnpjp2.so")
+GNASH_DESCRIPTION = str("Opção de código aberto para substituir o Flash Plugin. Compatível com a versão 7, bom suporte a versão 8 e com suporte a versão 9 em desenvolvimento contínuo.")

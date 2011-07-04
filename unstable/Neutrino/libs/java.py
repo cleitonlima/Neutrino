@@ -22,15 +22,9 @@
 #
 from os import environ, chdir, symlink, system
 desktoptype = environ.get('DESKTOP_SESSION')
-print desktoptype
-if "gnome" in desktoptype :
-	from api.base import GBase
-	base = GBase()
-elif "kde" in desktoptype:
-	from api.base import KBase
-	base = KBase()
-else:
-	pass
+from api.neutrino import GBase
+base = GBase()
+
 
 JAVA = str("http://cleitonlima.com.br/neutrino/packages/jre-6u24-linux-i586.rpm")
 

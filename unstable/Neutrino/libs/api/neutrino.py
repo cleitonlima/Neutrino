@@ -37,7 +37,6 @@ RPMFUSION_FREE = str("http://download1.rpmfusion.org/free/fedora/rpmfusion-free-
 RPMFUSION_NONFREE = str("http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm")
 
 #Video
-NVIDIA_OPEN = str("mesa-dri-drivers-experimental")
 NVIDIA_PROP = str("akmod-nvidia")
 NVIDIA_PROP_96 = str("akmod-nvidia-96xx")
 NVIDIA_PROP_173 = str("akmod-nvidia-173xx")

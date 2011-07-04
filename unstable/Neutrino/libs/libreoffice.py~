@@ -21,28 +21,23 @@
 
 
 #
-#This Module Installs Faenza Icon Theme
+#This module will install LibreOffice Suite.
 #
-from os import environ, path, remove
+from os import environ, system, remove
+import urllib2
 desktoptype = environ.get('DESKTOP_SESSION')
-from api.neutrino import GBase
+from api.base import GBase
 base = GBase()
 
-
 def install():
-	if path.isdir("/usr/share/icons/Faenza") == False:
-		package = ["faenza-icon-theme"]
-		base.pkg_install(package)
-		
+	base.pkg_install("libreoffice-calc libreoffice-writer libreoffice-impress libreoffice-langpack-pt-br libreoffice-pdfimporter")
+	
+	#Install CoGrOO extension for Writer
+	u = urllib2.urlopen('http://cleitonlima.com.br/neutrino/packages/CoGrOO-AddOn-3.1.0-bin.oxt')
+	localFile = open('/tmp/neutrino/CoGrOO-AddOn-3.1.0-bin.oxt', 'w')
+	localFile.write(u.read())
+	localFile.close()
+	system("beesu xterm -e unopkg add --shared /tmp/neutrino/CoGrOO-AddOn-3.1.0-bin.oxt")
+	remove("/tmp/neutrino/CoGrOO-AddOn-3.1.0-bin.oxt")
 
-def install_dark():
-	if path.isdir("/usr/share/icons/Faenza") == False:
-		package = ["faenza-icon-theme"]
-		base.pkg_install(package)
-
-def remove ():
-	package = ["faenza-icon-theme"]
-	base.pkg_remove(package)
-
-FAENZA_DESCRIPTION = str("Tema de ícones Faenza.")
-FAENZAdark_DESCRIPTION = str("Tema de ícones Faenza, habilita a versão para temas escuros.")
+LIBO_DESCRIPTION = str("Suíte de escritório de código aberto, compatível com formatos do MS Office e outros formatos abertos, como o ODF.")

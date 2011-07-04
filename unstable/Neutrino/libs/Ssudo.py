@@ -21,49 +21,18 @@
 
 #Setup sudo in Fedora
 from os import getlogin, getenv, chdir
-from dialog import *
-from dialog_ok import *
-from dialog_error import *
 
-def install():
-	file = open("/tmp/neutrino/text_var", "w")
-	file.write("Deseja executar a modificação?")
-	file.close()
-	app = QtGui.QApplication(sys.argv)
-	ex = NoYes()
-	ex.show()
-	app.exec_()
-	set = str(open("/tmp/neutrino/dialog_var").read())
-	if set == 'ok':
-		try:
-			install()
-			line = str("\n")
-			user = str(getlogin())
-			print user
-			cmd = str(" ALL=(ALL) NOPASSWD:ALL")
-			chdir(str("/etc/"))
-			sudoers = open ('sudoers', 'r').readlines()
-			sudoers.append(line+user+cmd)
-			sudo = open('sudoers', 'w')
-			sudo.writelines(sudoers)
-			sudo.close
-		except:
-			pass
-		file = open("/tmp/neutrino/text_var", "w")
-		file.write("Processo Concluído.")
-		file.close()
-		app1 = QtGui.QApplication(sys.argv)
-		ex1 = Ok()
-		ex1.show()
-		app1.exec_()
-	else:
-		file = open("/tmp/neutrino/text_var", "w")
-		file.write("Processo Cancelado.")
-		file.close()
-		app1 = QtGui.QApplication(sys.argv)
-		ex1 = OkCancel()
-		ex1.show()
-		app1.exec_()
-install()
+
+line = str("\n")
+user = str(getlogin())
+print user
+cmd = str(" ALL=(ALL) NOPASSWD:ALL")
+chdir(str("/etc/"))
+sudoers = open ('sudoers', 'r').readlines()
+sudoers.append(line+user+cmd)
+sudo = open('sudoers', 'w')
+sudo.writelines(sudoers)
+sudo.close
+		
 
 SUDO_DESCRIPTION = str("Configurar o uso do Sudo no Fedora.")
