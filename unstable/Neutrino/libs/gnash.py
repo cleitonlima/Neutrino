@@ -24,17 +24,16 @@
 #This module will install Gnash, opensource alternative to Adobe Flash
 #
 from os import environ
-desktoptype = environ.get('DESKTOP_SESSION')
 from api.neutrino import GBase
 base = GBase()
 
-
-GNASH = str("gnash-plugin")
+package = ["gnash-plugin", "gnash"]
 
 def install():
-	base.pkg_install("gnash gnash-plugin")
-
+	base.pkg_install(package)
+	
 def remove():
-	base.pkg_remove("gnash gnash-plugin")
+	background = pkg_remove(package)
+	background.start()
 	
 GNASH_DESCRIPTION = str("Opção de código aberto para substituir o Flash Plugin. Compatível com a versão 7, bom suporte a versão 8 e com suporte a versão 9 em desenvolvimento contínuo.")

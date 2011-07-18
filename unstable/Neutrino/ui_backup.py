@@ -24,7 +24,7 @@ from os import environ, system, path
 import sys
 from PyQt4 import QtCore, QtGui
 from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, libreoffice, elementary, faenza, amd
-from libs.api.test import *
+import threading
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -37,13 +37,8 @@ class MainWindow(QtGui.QMainWindow):
         size =  self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 	
-	#give a name to threads
-	
-	#Package Install Thread
-	self.pkg_ins = pkg_install()
-	
-	#Package Remove Thread
-	self.pkg_rm = pkg_remove()
+	self.thread = QtCore.QThread()
+	self.thread = worker
 	
 	#MainWindow GridLayout
 	self.centralwidget = QtGui.QWidget(self)
@@ -251,19 +246,6 @@ class MainWindow(QtGui.QMainWindow):
 	def message(slot, text):
 		QtGui.QMessageBox.information(self, str(slot),QtGui.QApplication.translate("MainWindow", str(text), None, QtGui.QApplication.UnicodeUTF8))
 	
-	def progress_show():
-		message("Information", "Tarefa iniciada, clique em ok.")
-		self.progress.show()
-		self.progress.setRange(0,0)
-	
-	def progress_hide():
-		message("Information", "Tarefa concluida, clique em ok.")
-		self.progress.hide()
-		
-	def progress_error():
-		message("Information", "Tarefa concluida com erros, veja o log em /tmp/neutrino/error.txt")
-		self.progress.hide()
-	
 	#Execute Tasks Function
 	def install_fun():
 		row = str(self.listWidget.currentRow())
@@ -339,8 +321,9 @@ class MainWindow(QtGui.QMainWindow):
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "10":
 			try:
-				package = ['gnash', 'gnash-plugin']
-				self.pkg_ins.install(package)
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				gnash.install()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "11":
@@ -441,8 +424,9 @@ class MainWindow(QtGui.QMainWindow):
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "10":
 			try:
-				package = ['gnash', 'gnash-plugin']
-				self.pkg_rm.remove(package)			
+				message("Information", "Iniciando a tarefa. clique em OK.")
+				gnash.remove()
+				message("Information", "Processo Concluído com Sucesso.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "11":
@@ -562,10 +546,7 @@ class MainWindow(QtGui.QMainWindow):
 	#Signals and Slots
 	
 	self.connect(self.install_bt, QtCore.SIGNAL("clicked()"), install_fun)
-	self.connect(self.pkg_ins, QtCore.SIGNAL("started ()"), progress_show)
-	self.connect(self.pkg_ins, QtCore.SIGNAL("finished ()"), progress_hide)
-	self.connect(self.pkg_ins, QtCore.SIGNAL("terminated ()"), progress_error)
-	self.connect(self.remove, QtCore.SIGNAL("clicked ()"), remove_fun)
+	self.connect(self.remove, QtCore.SIGNAL("clicked()"), remove_fun)
 	self.connect(self.listWidget, QtCore.SIGNAL("currentRowChanged (int)"), description)
 	self.connect(self.listWidget, QtCore.SIGNAL("currentRowChanged (int)"), remove_enable)
 	

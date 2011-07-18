@@ -23,9 +23,10 @@
 from os import system, path, makedirs, getlogin, remove, listdir, getenv, getcwd, chdir
 import urllib2
 import zlib
-from PyQt4 import QtCore, QtGui
+#from PyQt4 import QtCore, QtGui
 import dbus
 import yum
+import threading
 
 if not path.exists("/tmp/neutrino"):
     makedirs("/tmp/neutrino")
@@ -50,17 +51,10 @@ JAVA = str("http://espacoliberdade.blog.br/neutrino/packages/jre-6u24-linux-i586
 Ssudo_DESCRIPTION = str("Allow current user to execute programs and commands using 'sudo' instead of 'su'")
 
 #Gnome Module
-
 class GBase ():
-	def repo_add(GBase, adress, repo):
-		u = urllib2.urlopen(str(adress)+str(repo))
-		localFile = open('/etc/yum.repos.d/'+str(repo), 'w')
-		localFile.write(u.read())
-		localFile.close()
-
 	def pkg_install (GBase, package):
-		#Function to add a package to system
-		#Using graphical interface
+	#Function to Install Packages.
+		f = open("/tmp/neutrino/progress", 'w').write("/tmp/neutrino/progress")
 		yb = yum.YumBase()
 		for item in package:
 			print item
@@ -72,7 +66,12 @@ class GBase ():
 		yb.doRpmDBSetup()
 		yb.resolveDeps()		
 		yb.processTransaction()
-	
+	def repo_add (GBase,  adress, repo):
+		u = urllib2.urlopen(str(adress)+str(repo))
+		localFile = open('/etc/yum.repos.d/'+str(repo), 'w')
+		localFile.write(u.read())
+		localFile.close()
+		
 	def web_install(GBase, adress, pkg_name):
 		#Function to install package from de web.
 		#Will be util for rpmfusion repos install, for example.
