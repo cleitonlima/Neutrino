@@ -28,7 +28,6 @@ print desktoptype
 from api.neutrino import GBase
 base = GBase()
 
-
 #CODEC_PROP = str("totem-gstreamer totem-xine totem-nautilus totem-mozplugin totem-pl-parser totem-youtube xine-lib-extras xine-lib-extras-freeworld gstreamer-ffmpeg ffmpeg ffmpeg-libs gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly compat-libstdc++-33 compat-libstdc++-296 libdvdread libdvdnav lsdvd libdvbpsi")
 CODEC_PROP = ["gstreamer", "gstreamer-plugins-base", "gstreamer-plugins-bad", "gstreamer-plugins-bad-free", "gstreamer-plugins-bad-free-extras", "gstreamer-plugins-bad-nonfree", "gstreamer-plugins-base", "gstreamer-plugins-good", "gstreamer-plugins-ugly", "gstreamer-ffmpeg", "libmad", "libmatroska", "lsdvd", "xine-lib-extras", "xine-lib-extras-nonfree", "xine-lib-pulseaudio", "xine-lib-extras-freeworld", "faad2" "faac", "libdca", "compat-libstdc++-33", "compat-libstdc++-296"]
 RPMFUSION_FREE = ["http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm"]

@@ -23,16 +23,17 @@
 from os import getlogin, getenv, chdir
 
 
-line = str("\n")
-user = str(getlogin())
-print user
-cmd = str(" ALL=(ALL) NOPASSWD:ALL")
-chdir(str("/etc/"))
-sudoers = open ('sudoers', 'r').readlines()
-sudoers.append(line+user+cmd)
-sudo = open('sudoers', 'w')
-sudo.writelines(sudoers)
-sudo.close
+def install():
+	line = str("\n")
+	user = str(getlogin())
+	print user
+	cmd = str(" ALL=(ALL) NOPASSWD:ALL")
+	chdir(str("/etc/"))
+	sudoers = open ('sudoers', 'r').readlines()
+	sudoers.append(line+user+cmd)
+	sudo = open('sudoers', 'w')
+	sudo.writelines(sudoers)
+	sudo.close
 		
 
 SUDO_DESCRIPTION = str("Configurar o uso do Sudo no Fedora.")

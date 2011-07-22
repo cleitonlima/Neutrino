@@ -24,21 +24,28 @@
 
 from os import chdir, path, system, environ
 desktoptype = environ.get('DESKTOP_SESSION')
-print desktoptype
 from api.neutrino import GBase
 base = GBase()
 
 
-FLASH = str("flash-plugin")
+FLASH = ["flash-plugin"]
+GNASH = ["gnash-plugin", "gnash"]
 
-def install():
-	#Check Adobe's repositoy
-	if path.isfile("/etc/yum.repos.d/adobe-linux-i386.repo") == False:
-		base.web_install("http://cleitonlima.com.br/neutrino/packages/adobe-release-i386-1.0-1.noarch.rpm", "adobe-release-i386-1.0-1.noarch.rpm")
-	#Install Flash Plugin from repo
-	base.pkg_install(FLASH)
+def install(version):
+	if version == "adobe":
+		#Check Adobe's repositoy
+		if path.isfile("/etc/yum.repos.d/adobe-linux-i386.repo") == False:
+			base.web_install("http://cleitonlima.com.br/neutrino/packages/adobe-release-i386-1.0-1.noarch.rpm", "adobe-release-i386-1.0-1.noarch.rpm")
+		#Install Flash Plugin from repo
+		base.pkg_install(FLASH)
+	elif version == "gnash":
+		base.pkg_install(GNASH)
 
-def remove ():
-	base.pkg_remove(FLASH)
+def remove (version):
+	if version == "adobe":
+		base.pkg_remove(FLASH)
+	elif version == "gnash":
+		base.pkg_remove(GNASH)
 	
 FLASH_DESCRIPTION = str("Adobe Flash Plugin 10.2.159.1 Suporte Completo: Mozilla SeaMonkey 1.0+, Firefox 1.5+, Mozilla 1.7.13+")
+GNASH_DESCRIPTION = str("Opção de código aberto para substituir o Flash Plugin. Compatível com a versão 7, bom suporte a versão 8 e com suporte a versão 9 em desenvolvimento contínuo.")

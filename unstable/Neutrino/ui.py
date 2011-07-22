@@ -23,8 +23,7 @@
 from os import environ, system, path
 import sys
 from PyQt4 import QtCore, QtGui
-from libs import chromium, gnash, fonts, openjdk, flash, codecs, nvidia, libreoffice, elementary, faenza, amd
-from libs.api.test import *
+from libs import chromium, fonts, java, flash, codecs, nvidia, libreoffice, elementary, faenza, amd, Ssudo
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -37,22 +36,22 @@ class MainWindow(QtGui.QMainWindow):
         size =  self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 	
-	#give a name to threads
-	
-	#Package Install Thread
-	self.pkg_ins = pkg_install()
-	
-	#Package Remove Thread
-	self.pkg_rm = pkg_remove()
-	
 	#MainWindow GridLayout
-	self.centralwidget = QtGui.QWidget(self)
-        self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout = QtGui.QGridLayout(self.centralwidget)
+	#self.centralwidget = QtGui.QWidget(self)
+        #self.centralwidget.setObjectName("centralwidget")
+	#self.setCentralWidget(self.centralwidget)
+	self.centralwidget = QtGui.QTabWidget(self)
+	self.setCentralWidget(self.centralwidget)
+
+	#The tab1 contains the list of applications
+	tab1 = QtGui.QWidget(self)
+	self.centralwidget.addTab(tab1, "Lista de Aplicativos")
+	
+	#First Tab Content
+	self.gridLayout = QtGui.QGridLayout(tab1)
         self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName("gridLayout")
-	self.setCentralWidget(self.centralwidget)
-	
+
 	#ListWidget of Neutrino's Functions
         self.listWidget = QtGui.QListWidget(self.centralwidget)
         self.listWidget.setIconSize(QtCore.QSize(32, 32))
@@ -91,9 +90,17 @@ class MainWindow(QtGui.QMainWindow):
 	icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("imgs/uninstall.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 	
-	#Execute button Icon
+	#Install button Icon
 	icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap("imgs/install.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+	
+	#Execute button Icon
+	icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap("imgs/begin.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+	
+	#Remove from list button Icon
+	icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap("imgs/clear.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
 	#Nvidia Driver Item
 	item = QtGui.QListWidgetItem(self.listWidget)
@@ -165,35 +172,10 @@ class MainWindow(QtGui.QMainWindow):
         item.setIcon(icon_other)
         self.listWidget.item(13).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Elementary", None, QtGui.QApplication.UnicodeUTF8))
 	
-	#Elementary Mono Dark Item
-        item = QtGui.QListWidgetItem(self.listWidget)
-        item.setIcon(icon_other)
-        self.listWidget.item(14).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Elementary Mono Dark", None, QtGui.QApplication.UnicodeUTF8))
-	
 	#Faenza Item
         item = QtGui.QListWidgetItem(self.listWidget)
         item.setIcon(icon_other)
-        self.listWidget.item(15).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Faenza", None, QtGui.QApplication.UnicodeUTF8))
-	
-	#Faenza Dark Item
-        item = QtGui.QListWidgetItem(self.listWidget)
-        item.setIcon(icon_other)
-        self.listWidget.item(16).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Faenza Dark", None, QtGui.QApplication.UnicodeUTF8))
-	
-	#GShell Elementary Item
-        item = QtGui.QListWidgetItem(self.listWidget)
-        item.setIcon(icon_other)
-        self.listWidget.item(17).setText(QtGui.QApplication.translate("MainWindow", "Tema Elementary para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
-	
-	#GShell Smooth-Inset Item
-        item = QtGui.QListWidgetItem(self.listWidget)
-        item.setIcon(icon_other)
-        self.listWidget.item(18).setText(QtGui.QApplication.translate("MainWindow", "Tema Smooth-Inset para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
-	
-	#GShell Atolm Item
-        item = QtGui.QListWidgetItem(self.listWidget)
-        item.setIcon(icon_other)
-        self.listWidget.item(19).setText(QtGui.QApplication.translate("MainWindow", "Tema Atolm para o Gnome-Shell", None, QtGui.QApplication.UnicodeUTF8))
+        self.listWidget.item(14).setText(QtGui.QApplication.translate("MainWindow", "Tema de Ícones Faenza", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#TextEdit
 	self.textEdit = QtGui.QTextEdit(self.centralwidget)
@@ -221,7 +203,6 @@ class MainWindow(QtGui.QMainWindow):
         self.remove.setIconSize(QtCore.QSize(32, 32))
         self.remove.setObjectName("commandLinkButton")
 	self.remove.setToolTip(QtGui.QApplication.translate("MainWindow", "Uninstall Selected Program", None, QtGui.QApplication.UnicodeUTF8))
-        self.remove.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+-", None, QtGui.QApplication.UnicodeUTF8))
 	#self.remove.setEnabled(False)
 	
 	#Add Remove Item Button to Frame Internal Layout
@@ -235,7 +216,6 @@ class MainWindow(QtGui.QMainWindow):
         self.install_bt.setIconSize(QtCore.QSize(32, 32))
         self.install_bt.setObjectName("install_bt")
 	self.install_bt.setToolTip(QtGui.QApplication.translate("MainWindow", "Install Selected Program", None, QtGui.QApplication.UnicodeUTF8))
-        self.install_bt.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+E", None, QtGui.QApplication.UnicodeUTF8))
 	
 	#Add Install Button to Frame Internal Layout
         self.horizontalLayout.addWidget(self.install_bt)
@@ -246,6 +226,68 @@ class MainWindow(QtGui.QMainWindow):
 	self.progress = QtGui.QProgressBar(self.centralwidget)
 	self.gridLayout.addWidget(self.progress, 4,0,1,1)
 	self.progress.hide()
+	
+	#tab2 receive the list of tasks
+	tab2 = QtGui.QWidget(self)
+	self.centralwidget.addTab(tab2, "Lista de Tarefas")
+	
+	#tab2 Content
+	#First Tab Content
+	self.gridLayout2 = QtGui.QGridLayout(tab2)
+        self.gridLayout2.setMargin(0)
+        self.gridLayout2.setObjectName("gridLayout2")
+
+	self.label = QtGui.QLabel(tab2)
+	self.label.setText("Lista de Tarefas")
+	self.gridLayout2.addWidget(self.label, 0,0,1,1)
+	
+	#ListWidget of Neutrino's tasks
+        self.listWidget2 = QtGui.QListWidget(tab2)
+        self.listWidget2.setIconSize(QtCore.QSize(32, 32))
+        self.listWidget2.setObjectName("listWidget")
+
+	#ListWidget gridLayout
+	self.gridLayout2.addWidget(self.listWidget2, 1, 0, 1, 1)
+	
+	#Buttons Frame
+	self.frame2 = QtGui.QFrame(tab2)
+        self.frame2.setMinimumSize(QtCore.QSize(0, 50))
+        self.frame2.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.frame2.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame2.setObjectName("frame")
+        
+	#Buttons Frame Internal Layout
+	self.horizontalLayout2 = QtGui.QHBoxLayout(self.frame2)
+        self.horizontalLayout2.setObjectName("horizontalLayout")
+	
+	#Uninstall Button
+        self.rm = QtGui.QCommandLinkButton(self.frame2)
+        self.rm.setMaximumSize(QtCore.QSize(45, 64))
+        self.rm.setText("")
+	self.rm.setIcon(icon6)
+        self.rm.setIconSize(QtCore.QSize(32, 32))
+        self.rm.setObjectName("Remove_item_from_list")
+	self.rm.setToolTip(QtGui.QApplication.translate("MainWindow", "Remover Item Selecionado da Lista", None, QtGui.QApplication.UnicodeUTF8))
+	#self.rm.setEnabled(False)
+	
+	#Add Remove Item Button to Frame Internal Layout
+        self.horizontalLayout2.addWidget(self.rm)
+        
+	#Install Button
+        self.execute = QtGui.QCommandLinkButton(self.frame2)
+        self.execute.setMaximumSize(QtCore.QSize(45, 64))
+        self.execute.setText("")
+        self.execute.setIcon(icon5)
+	self.execute.setIconSize(QtCore.QSize(32, 32))
+	self.execute.setObjectName("execute_bt")
+	self.execute.setToolTip(QtGui.QApplication.translate("MainWindow", "Executar as tarefas", None, QtGui.QApplication.UnicodeUTF8))
+	#self.execute.setEnabled(False)
+	
+	#Add Install Button to Frame Internal Layout
+        self.horizontalLayout2.addWidget(self.execute)
+	
+	#Add Frame to MainWindow GridLayout
+        self.gridLayout2.addWidget(self.frame2, 3, 0, 1, 1)
 	
 	#Internal Functions
 	def message(slot, text):
@@ -264,151 +306,113 @@ class MainWindow(QtGui.QMainWindow):
 		message("Information", "Tarefa concluida com erros, veja o log em /tmp/neutrino/error.txt")
 		self.progress.hide()
 	
-	#Execute Tasks Function
-	def install_fun():
+	tasks = []
+	
+	def task_add():
+	#Add Item to the List
 		row = str(self.listWidget.currentRow())
 		if row == "0":
-			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				nvidia.install()
-				message("Information", "Processo Concluído com Sucesso.")
-			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)	
+			self.listWidget2.addItem("Instalar driver Nvidia")
+			tasks.append("nvidia")
+			message("Information", "Tarefa adicionada a lista.")
 		elif row == "1":
-			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				nvidia.install_173()
-				message("Information", "Processo Concluído com Sucesso.")
-			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)	
+			self.listWidget2.addItem("Instalar Driver Nvidia 173")
+			tasks.append("nvidia_173")
+			message("Information", "Tarefa adicionada a lista.")
 		elif row == "2":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				nvidia.install_96()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar driver Nvidia")
+				tasks.append("nvidia_96")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "3":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				amd.install()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar driver placa de video AMD")
+				tasks.append("amd")
+				message("Information", "Tarefa adicionada a lista.")			
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "4":
 			try:
-				message("information", "Iniciando a tarefa. Clique em Ok")
-				codecs.install()
-				message("information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar codecs proprietarios")
+				tasks.append("codecs")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("critical", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "5":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				libreoffice.install()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar suite de escritorio LibreOffice")
+				tasks.append("loffice")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "6":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				fonts.install()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar Fontes Proprietarias e Nao Livres.")
+				tasks.append("fonts")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "7":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				system("beesu python libs/Ssudo.py")
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Adicionar o usuario atual como administrador")
+				tasks.append("root")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "8":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				openjdk.install()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar o OpenJDK")
+				tasks.append("openjdk")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "9":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				system("beesu python libs/java.py")
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar o Oracle Java")
+				tasks.append("ojava")
+				message("Information", "Tarefa adicionada a lista.")			
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "10":
 			try:
-				package = ['gnash', 'gnash-plugin']
-				self.pkg_ins.install(package)
+				self.listWidget2.addItem("Instalar plugin Gnash")
+				tasks.append("gnash")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "11":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				flash.install()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar o Adobe Flash Plugin")
+				tasks.append("flash")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "12":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				chromium.install()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar navegador Chromium")
+				tasks.append("chromium")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		elif row == "13":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				elementary.install()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar tema de icones Elementary")
+				tasks.append("elementary")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "14":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				elementary.install_dark()
-				message("Information", "Processo Concluído com Sucesso.")
-			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)					
-		elif row == "15":
-			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				faenza.install()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Instalar tema de icones Faenza")
+				tasks.append("faenza")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
-		elif row == "16":
-			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				faenza.install_dark()
-				message("Information", "Processo Concluído com Sucesso.")
-			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)
-		elif row == "17":
-			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				gshell_elementary.install()
-				message("Information", "Processo Concluído com Sucesso.")
-			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)	
-		elif row == "18":
-			try:
-				message("Information", "Iniciando a tarefa. Clique em Ok.")
-				gshell_smooth.install()
-				message("Information", "Processo Concluído com Sucesso.")
-			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)		
-		elif row == "19":
-			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				gshell_atolm.install()
-				message("Information", "Processo Concluído com Sucesso.")
-			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)	
 		else:
 			pass
-	
+		
 	def remove_enable():
 		row = str(self.listWidget.currentRow())
 		if row == "8":
@@ -423,10 +427,6 @@ class MainWindow(QtGui.QMainWindow):
 			self.remove.setEnabled(True)
 		elif row == "14":
 			self.remove.setEnabled(True)
-		elif row == "15":
-			self.remove.setEnabled(True)
-		elif row == "16":
-			self.remove.setEnabled(True)
 		else:
 			self.remove.setEnabled(False)
 			
@@ -434,59 +434,126 @@ class MainWindow(QtGui.QMainWindow):
 		row = str(self.listWidget.currentRow())
 		if row == "8":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				openjdk.remove()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Remover o OpenJDK")
+				tasks.append("openjdk_rm")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "10":
 			try:
-				package = ['gnash', 'gnash-plugin']
-				self.pkg_rm.remove(package)			
+				self.listWidget2.addItem("Remover o Plugin Gnash")
+				tasks.append("gnash_rm")
+				message("Information", "Tarefa adicionada a lista.")			
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "11":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				flash.remove()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Remover o Flash Plugin")
+				tasks.append("flash_rm")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "12":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				chromium.remove()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Remover o Navegador Chromium")
+				tasks.append("chromium_rm")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "13":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				elementary.remove()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Remover o tema de icones Elementary")
+				tasks.append("elementary_rm")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
 		elif row == "14":
 			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				elementary.remove()
-				message("Information", "Processo Concluído com Sucesso.")
+				self.listWidget2.addItem("Remover o tema de icones Faenza")
+				tasks.append("faenza_rm")
+				message("Information", "Tarefa adicionada a lista.")
 			except Exception, e:
 				message("Error", "Ocorreu o seguinte erro: %s" % e)
-		elif row == "15":
-			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				faenza.remove()
-				message("Information", "Processo Concluído com Sucesso.")
-			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)
-		elif row == "16":
-			try:
-				message("Information", "Iniciando a tarefa. clique em OK.")
-				faenza.remove()
-				message("Information", "Processo Concluído com Sucesso.")
-			except Exception, e:
-				message("Error", "Ocorreu o seguinte erro: %s" % e)
+	
+	#Execute Tasks Function
+	def exec_tasks():
+		row = 0
+		message("Information", "Iniciando a tarefa. clique em OK.")
+		try:
+			for item in tasks:
+				if item == "nvidia":
+					row = row + 1
+					nvidia.install("default")
+				elif item == "nvidia_173":
+					row = row + 1
+					nvidia.install("173")
+				elif item == "nvidia_96":
+					row = row + 1
+					nvidia.install("96")
+				elif item == "amd":
+					row = row + 1
+					amd.install()
+				elif item == "codecs":
+					row = row + 1
+					codecs.install()
+				elif item == "loffice":
+					row = row + 1
+					libreoffice.install()
+				elif item == "fonts":
+					row = row + 1
+					fonts.install()
+				elif item == "root":
+					row = row + 1
+					Ssudo.install()
+				elif item == "opendjk":
+					row = row + 1
+					java.install("openjdk")
+				elif item == "opendjk_rm":
+					row = row + 1
+					java.remove("openjdk")
+				elif item == "ojava":
+					row = row + 1
+					java.install("java")
+				elif item == "gnash":
+					row = row + 1
+					flash.install("gnash")
+				elif item == "gnash_rm":
+					row = row + 1
+					flash.remove("gnash")
+				elif item == "flash":
+					row = row + 1
+					flash.install("flash")
+				elif item == "flash_rm":
+					row = row + 1
+					flash.remove("flash")
+				elif item == "chromium":
+					row = row + 1
+					chromium.install()
+				elif item == "chromium_rm":
+					row = row + 1
+					chromium.remove()
+				elif item == "elementary":
+					row = row + 1
+					elementary.install()
+				elif item == "elementary_rm":
+					row = row + 1
+					elementary.remove()
+				elif item == "faenza":
+					row = row + 1
+					faenza.install()
+				elif item == "faenza_rm":
+					row = row + 1
+					faenza.remove()
+				else:
+					pass
+		except Exception, e:
+			message("Error", "Ocorreu o seguinte erro: %s" % e)
+		for item in tasks:
+			tasks
+			tasks.remove(item)
+		message("Information", "Tarefas Concluidas")
+		self.listWidget2.clear()
+		
 	
 	def description ():
 		row = str(self.listWidget.currentRow())
@@ -512,17 +579,16 @@ class MainWindow(QtGui.QMainWindow):
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", fonts.FONTS_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "7":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", "Configura o uso do Sudo no Fedora.", None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", Ssudo.SUDO_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "8":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", openjdk.OPENJDK_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", java.OPENJDK_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "9":
-			JAVA_DESCRIPTION = str("O JRE consiste no Java Virtual Machine (JVM), nas classes centrais e bibliotecas de suporte da plataforma Java. O JRE representa a parte de tempo de execução do software Java, que é tudo de que você precisa para executá-lo em um navegador da Web.")
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", JAVA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", java.JAVA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "10":
 			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", gnash.GNASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
+			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", flash.GNASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "11":
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", flash.FLASH_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
@@ -532,39 +598,18 @@ class MainWindow(QtGui.QMainWindow):
 		elif row == "13":
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", elementary.elementary_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-		elif row == "14":
-			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", elementary.elementarydark_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
 		elif row == "15":
 			FAENZA_DESCRIPTION = str("Tema de Ícones Faenza, para o Gnome.")
 			self.textEdit.clear()
 			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", faenza.FAENZA_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-		elif row == "16":
-			FAENZA_DESCRIPTION = str("Tema de Ícones Faenza, para o Gnome.")
-			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", faenza.FAENZAdark_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-		elif row == "17":
-			GShell_elementary_DESCRIPTION = str("Tema Elementary para o Gnome-Shell, por Half-Left")
-			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_elementary_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-		elif row == "18":
-			GShell_smooth_DESCRIPTION = str("Tema Smooth-Inset para o Gnome-Shell, por Half-Left")
-			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", gshell_smooth.gshell_smooth_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-		elif row == "19":
-			GShell_atolm_DESCRIPTION = str("Tema Atolm para o Gnome-Shell, por Half-Left")
-			self.textEdit.clear()
-			self.textEdit.setText(QtGui.QApplication.translate("Neutrino Project", GShell_atolm_DESCRIPTION, None, QtGui.QApplication.UnicodeUTF8))
-
 		else:
 			print "Ops..."
 			
 	#Signals and Slots
 	
-	self.connect(self.install_bt, QtCore.SIGNAL("clicked()"), install_fun)
-	self.connect(self.pkg_ins, QtCore.SIGNAL("started ()"), progress_show)
-	self.connect(self.pkg_ins, QtCore.SIGNAL("finished ()"), progress_hide)
-	self.connect(self.pkg_ins, QtCore.SIGNAL("terminated ()"), progress_error)
+	self.connect(self.install_bt, QtCore.SIGNAL("clicked()"), task_add)
+	self.connect(self.rm, QtCore.SIGNAL("clicked()"), self.listWidget2.clear)
+	self.connect(self.execute, QtCore.SIGNAL("clicked()"), exec_tasks)
 	self.connect(self.remove, QtCore.SIGNAL("clicked ()"), remove_fun)
 	self.connect(self.listWidget, QtCore.SIGNAL("currentRowChanged (int)"), description)
 	self.connect(self.listWidget, QtCore.SIGNAL("currentRowChanged (int)"), remove_enable)

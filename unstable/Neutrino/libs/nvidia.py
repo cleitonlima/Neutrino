@@ -27,8 +27,6 @@ desktoptype = environ.get('DESKTOP_SESSION')
 from api.neutrino import GBase
 base = GBase()
 
-
-NVIDIA_OPEN = str("mesa-dri-drivers-experimental")
 NVIDIA_PROP = str("akmod-nvidia")
 NVIDIA_PROP_96 = str("akmod-nvidia-96xx")
 NVIDIA_PROP_173 = str("akmod-nvidia-173xx")
@@ -36,7 +34,7 @@ RPMFUSION_FREE = str("http://download1.rpmfusion.org/free/fedora/rpmfusion-free-
 RPMFUSION_NONFREE = str("http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm")
 
 #Script para Nvidia GeForce 6, 7, 8, 9, série 200, série 300 e superiores
-def install ():
+def install (version):
 	#Check if repo RPMFusion already exists
 	if path.isfile("/etc/yum.repos.d/rpmfusion-free.repo") == False:
 		base.web_install(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
@@ -44,30 +42,14 @@ def install ():
 		base.web_install(RPMFUSION_NONFREE, 'rpmfusion-nonfree-release-stable.noarch.rpm')
 	
 	#Install Nvidia Driver
-	base.pkg_install(NVIDIA_PROP)
-
-#Script para Nvidia GeForce FX
-def install_173 ():
-	#Check if repo RPMFusion already exists
-	if path.isfile("/etc/yum.repos.d/rpmfusion-free.repo") == False:
-		base.web_install(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
-	elif path.isfile("/etc/yum.repos.d/rpmfusion-nonfree.repo") == False:
-		base.web_install(RPMFUSION_NONFREE, 'rpmfusion-nonfree-release-stable.noarch.rpm')
-	
-	#Install Nvidia Driver
-	base.pkg_install(NVIDIA_PROP_173)
-
-#Script para Driver Nvidia para placas GeForce 2, 3, 4 e Quadro 4
-def install_96 ():
-	#Check if repo RPMFusion already exists
-	#Check if repo RPMFusion already exists
-	if path.isfile("/etc/yum.repos.d/rpmfusion-free.repo") == False:
-		base.web_install(RPMFUSION_FREE, "rpmfusion-free-release-stable.noarch.rpm")
-	elif path.isfile("/etc/yum.repos.d/rpmfusion-nonfree.repo") == False:
-		base.web_install(RPMFUSION_NONFREE, 'rpmfusion-nonfree-release-stable.noarch.rpm')
-	
-	#Install Nvidia Driver
-	base.pkg_install(NVIDIA_PROP_96)
+	if version == "default":
+		base.pkg_install(NVIDIA_PROP)
+	#Install  Nvidia GeForce FX Driver
+	elif version == "173":
+		base.pkg_install(NVIDIA_PROP_173)
+	#Install Nvidia GeForce 2, 3, 4 e Quadro 4 Driver
+	elif version == "96":
+		base.pkg_install(NVIDIA_PROP_96)
 
 NVIDIA_DESCRIPTION = str("Driver Nvidia para placas GeForce 6, 7, 8, 9, série 200, série 300 e superiores. Mais informações: http://www.nvidia.com/object/IO_18897.html")
 NVIDIA_173_DESCRIPTION = str("Driver Nvidia para placas GeForce FX. Mais informações: http://www.nvidia.com/object/IO_18897.html")

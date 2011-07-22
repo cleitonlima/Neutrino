@@ -27,7 +27,7 @@ from api.neutrino import GBase
 base = GBase()
 
 
-JAVA_OPEN = str("java-openjdk icedtea-web")
+JAVA_OPEN = ["java-openjdk","icedtea-web"]
 
 #Install OpenJDK
 def install():
